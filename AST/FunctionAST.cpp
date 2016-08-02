@@ -19,3 +19,8 @@ std::string FunctionAST::virtualName(std::string name, std::string version)
 
     return name + "." + version;
 }
+
+llvm::Value * BlockAST::accept(Demux * demux)
+{
+    return demux->visit(*this);
+}

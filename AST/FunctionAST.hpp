@@ -6,6 +6,7 @@
 #include <string>
 
 #include "ExpressionAST.hpp"
+#include "StatementAST.hpp"
 
 class Demux;
 class FunctionAST;
@@ -13,7 +14,7 @@ class FunctionAST;
 typedef std::vector<std::shared_ptr<FunctionAST>> FunctionList;
 
 
-class FunctionAST : NodeAST
+class FunctionAST : public NodeAST
 {
     std::string name;
     ExpressionList expressions;
@@ -27,5 +28,17 @@ public:
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
+
+class BlockAST : public NodeAST
+{
+    StatementList statements;
+
+public:
+    BlockAST(StatementList & statements) :
+            statements(statements)
+    {}
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
 
 #endif // VFL_FUNCTION_HPP
