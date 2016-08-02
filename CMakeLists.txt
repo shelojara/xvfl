@@ -13,6 +13,6 @@ set(SOURCES
         Demux/Demux.cpp
         Module/VflModule.cpp
         Module/Scope.cpp
-        AST/Program.cpp AST/NodeAST.cpp AST/NodeAST.hpp AST/ExpressionAST.hpp TypeSystem/TypeSystem.cpp TypeSystem/TypeSystem.hpp Util/NonCopyable.cpp Util/NonCopyable.hpp AST/ExpressionAST.cpp)
+        AST/Program.cpp AST/NodeAST.cpp AST/NodeAST.hpp AST/ExpressionAST.hpp TypeSystem/TypeSystem.cpp TypeSystem/TypeSystem.hpp Util/NonCopyable.cpp Util/NonCopyable.hpp AST/ExpressionAST.cpp CodeGen/BinaryOpGen.cpp CodeGen/BinaryOpGen.hpp CodeGen/FunctionCallGen.cpp CodeGen/FunctionCallGen.hpp CodeGen/StringGen.cpp CodeGen/StringGen.hpp CodeGen/IdentifierGen.cpp CodeGen/IdentifierGen.hpp CodeGen/BasicValueGen.cpp CodeGen/BasicValueGen.hpp CodeGen/ArrayGen.cpp CodeGen/ArrayGen.hpp CodeGen/StructGen.cpp CodeGen/StructGen.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

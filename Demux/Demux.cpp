@@ -20,55 +20,55 @@ llvm::Value * Demux::visit(FunctionAST & node)
 
 llvm::Value * Demux::visit(BinaryOpAST & node)
 {
-    return nullptr; // binaryOpGen.emit(*module, node);
+    return binaryOpGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(FunctionCallAST & node)
 {
-    return nullptr; // functionCallGen.emit(*module, node);
+    return functionCallGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(VersionInvAST & node)
 {
-    return nullptr; // versionInvGen.emit(*module, node);
+    return functionCallGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(StringAST & node)
 {
-    return nullptr; // stringGen.emit(*module, node);
+    return stringGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(IdentifierAST & node)
 {
-    return nullptr; // identifierGen.emit(*module, node);
+    return identifierGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(IntegerAST & node)
 {
-    return nullptr; // basicValueGen.emitInteger(*module, node);
+    return basicValueGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(BoolAST & node)
 {
-    return nullptr; // basicValueGen.emitBool(*module, node);
+    return basicValueGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(FloatAST & node)
 {
-    return nullptr; // basicValueGen.emitFloat(*module, node);
+    return basicValueGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(ArrayAST & node)
 {
-    return nullptr; // arrayGen.emit(*module, node);
+    return arrayGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(ArrayIndexAST & node)
 {
-    return nullptr; // arrayIndexGen.emit(*module, node);
+    return arrayGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(StructMemberAST & node)
 {
-    return nullptr; // structMemberGen.emit(*module, node);
+    return structGen.emit(module, node);
 }

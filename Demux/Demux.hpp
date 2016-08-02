@@ -10,6 +10,13 @@
 #include "../Module/VflModule.hpp"
 #include "../CodeGen/FunctionGen.hpp"
 #include "../Util/NonCopyable.hpp"
+#include "../CodeGen/BinaryOpGen.hpp"
+#include "../CodeGen/FunctionCallGen.hpp"
+#include "../CodeGen/StringGen.hpp"
+#include "../CodeGen/IdentifierGen.hpp"
+#include "../CodeGen/BasicValueGen.hpp"
+#include "../CodeGen/ArrayGen.hpp"
+#include "../CodeGen/StructGen.hpp"
 
 class FunctionAST;
 class Program;
@@ -24,6 +31,20 @@ private:
     VflModule & module;
 
     FunctionGen functionGen;
+
+    BinaryOpGen binaryOpGen;
+
+    FunctionCallGen functionCallGen;
+
+    StringGen stringGen;
+
+    IdentifierGen identifierGen;
+
+    BasicValueGen basicValueGen;
+
+    ArrayGen arrayGen;
+
+    StructGen structGen;
 
 public:
     Demux(VflModule & module) : module(module) {}
@@ -56,4 +77,4 @@ public:
 };
 
 
-#endif /* VFL_DEMUX_HPP */
+#endif // VFL_DEMUX_HPP
