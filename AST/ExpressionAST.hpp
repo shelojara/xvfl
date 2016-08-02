@@ -44,6 +44,12 @@ public:
                 const std::shared_ptr<ExpressionAST> & right) : op(op), left(left), right(right)
     {}
 
+    const std::string & getOp() const;
+
+    const std::shared_ptr<ExpressionAST> & getLeft() const;
+
+    const std::shared_ptr<ExpressionAST> & getRight() const;
+
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
@@ -63,6 +69,12 @@ public:
             name(name), version(version), arguments(arguments)
     {}
 
+    const std::string & getName() const;
+
+    const std::string & getVersion() const;
+
+    const ExpressionList & getArguments() const;
+
     std::string virtualName();
 
     virtual llvm::Value * accept(Demux * demux) override;
@@ -74,15 +86,19 @@ public:
  * Expression of the type @([version ';']...), which calls
  * the enclosing function, or a version of it.
  */
-class VersionInv : public ExpressionAST
+class VersionInvAST : public ExpressionAST
 {
     std::string version;
     ExpressionList arguments;
 
 public:
-    VersionInv(std::string version, ExpressionList arguments) :
+    VersionInvAST(std::string version, ExpressionList arguments) :
             version(version), arguments(arguments)
     {}
+
+    const std::string & getVersion() const;
+
+    const ExpressionList & getArguments() const;
 
     std::string virtualName(std::string name);
 
@@ -93,13 +109,15 @@ public:
 /**
  * String.
  */
-class String : public ExpressionAST
+class StringAST : public ExpressionAST
 {
     std::string value;
 
 public:
-    String(std::string value) : value(value)
+    StringAST(std::string value) : value(value)
     {}
+
+    const std::string & getValue() const;
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
@@ -108,54 +126,118 @@ public:
 /**
  * A reference to an already defined scope value.
  */
-class Identifier : public ExpressionAST
+class IdentifierAST : public ExpressionAST
 {
     std::string name;
 
 public:
-    Identifier(std::string name) :
+    IdentifierAST(std::string name) :
             name(name)
     {}
+
+    const std::string & getName() const;
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
-class Integer : public ExpressionAST
+class IntegerAST : public ExpressionAST
 {
     int value;
 
 public:
-    Integer(int value) :
+    IntegerAST(int value) :
             value(value)
     {}
+
+    int getValue() const;
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
-class Bool : public ExpressionAST
+class BoolAST : public ExpressionAST
 {
     bool boolean;
 
 public:
-    Bool(bool boolean) :
+    BoolAST(bool boolean) :
             boolean(boolean)
     {}
+
+    bool isBoolean() const;
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
-class Float : public ExpressionAST
+class FloatAST : public ExpressionAST
 {
     float value;
 
 public:
-    Float(float value) : value(value) {}
-    virtual ~Float() = default;
+    FloatAST(float value) :
+            value(value)
+    {}
 
-    virtual llvm::Value * accept(Generator * generator);
+    float getValue() const;
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
+class ArrayAST : public ExpressionAST
+{
+    ExpressionList elements;
+
+public:
+    ArrayAST(ExpressionList elements) :
+            elements(elements)
+    {}
+
+    const ExpressionList & getElements() const;
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
+struct ArrayIndexAST : public ExpressionAST
+{
+    std::string name;
+    std::shared_ptr<ExpressionAST> expression;
+
+public:
+    ArrayIndexAST(std::string name, std::shared_ptr<ExpressionAST> expression) :
+            name(name), expression(expression)
+    {}
+
+    const std::string & getName() const;
+
+    const std::shared_ptr<ExpressionAST> & getExpression() const;
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
+/**
+ * An struct member refers to a named value taken from another
+ * expression (that returns a Struct).
+ */
+class StructMemberAST : public ExpressionAST
+{
+    std::string variable;
+    std::string member;
+
+public:
+    StructMemberAST(std::string variable, std::string member) :
+            variable(variable), member(member)
+    {}
+
+    const std::string & getVariable() const;
+
+    const std::string & getMember() const;
+
+    virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
