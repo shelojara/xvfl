@@ -12,35 +12,22 @@ set(SOURCES
         CodeGen/FunctionGen.cpp
         Demux/Demux.cpp
         Module/VflModule.cpp
-        Module/Scope.cpp
-        AST/Program.cpp
         AST/NodeAST.cpp
-        AST/NodeAST.hpp
-        AST/ExpressionAST.hpp
         TypeSystem/TypeSystem.cpp
-        TypeSystem/TypeSystem.hpp
         Util/NonCopyable.cpp
-        Util/NonCopyable.hpp
         AST/ExpressionAST.cpp
         CodeGen/BinaryOpGen.cpp
-        CodeGen/BinaryOpGen.hpp
         CodeGen/FunctionCallGen.cpp
-        CodeGen/FunctionCallGen.hpp
         CodeGen/StringGen.cpp
-        CodeGen/StringGen.hpp
         CodeGen/IdentifierGen.cpp
-        CodeGen/IdentifierGen.hpp
         CodeGen/BasicValueGen.cpp
-        CodeGen/BasicValueGen.hpp
         CodeGen/ArrayGen.cpp
-        CodeGen/ArrayGen.hpp
         CodeGen/StructGen.cpp
-        CodeGen/StructGen.hpp
         AST/StatementAST.cpp
-        AST/StatementAST.hpp
         Parser/Generated/Parser.cpp
         Parser/Generated/Lexer.cpp
         TypeSystem/Types.cpp
-        TypeSystem/Types.hpp AST/StructAST.cpp AST/StructAST.hpp Demux/DemuxComponent.hpp)
+        AST/StructAST.cpp
+        CodeGen/AssignmentGen.cpp CodeGen/VarDeclGen.cpp CodeGen/VarDeclGen.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

@@ -41,7 +41,7 @@ class BinaryOpAST : public ExpressionAST
 
 public:
     BinaryOpAST(std::shared_ptr<ExpressionAST> left, std::string op,
-                std::shared_ptr<ExpressionAST> right) :
+            std::shared_ptr<ExpressionAST> right) :
             op(op), left(left), right(right)
     {}
 
@@ -159,14 +159,17 @@ public:
 
 class BoolAST : public ExpressionAST
 {
-    bool boolean;
+    bool value;
 
 public:
-    BoolAST(bool boolean) :
-            boolean(boolean)
+    BoolAST(bool value) :
+            value(value)
     {}
 
-    bool isBoolean() const;
+    bool getValue() const
+    {
+        return value;
+    }
 
     virtual llvm::Value * accept(Demux * demux) override;
 };

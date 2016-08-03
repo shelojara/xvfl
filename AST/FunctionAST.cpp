@@ -20,9 +20,23 @@ llvm::Value * FunctionAST::accept(Demux * demux)
     return demux->visit(*this);
 }
 
+std::shared_ptr<Type> FunctionAST::getType()
+{
+    if (!type) {
+        type.reset(new Type("void"));
+    }
+
+    return type;
+}
+
 llvm::Value * BlockAST::accept(Demux * demux)
 {
     return demux->visit(*this);
+}
+
+const StatementList & BlockAST::getStatements() const
+{
+    return statements;
 }
 
 llvm::Value * ParameterAST::accept(Demux * demux)

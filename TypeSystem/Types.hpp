@@ -26,7 +26,12 @@ public:
      * @param typeSystem the current type system
      * @return the LLVM Type
      */
-    virtual llvm::Type * getType(TypeSystem & typeSystem);
+    virtual llvm::Type * toLLVM(TypeSystem & typeSystem);
+
+    std::string getName() const
+    {
+        return name;
+    }
 
     virtual bool isArray()
     {
@@ -49,7 +54,12 @@ public:
             Type(name), size(size)
     {}
 
-    virtual llvm::Type * getType(TypeSystem & typeSys);
+    virtual llvm::Type * toLLVM(TypeSystem & typeSys);
+
+    std::shared_ptr<ExpressionAST> getSize()
+    {
+        return size;
+    }
 
     virtual bool isArray()
     {
@@ -65,7 +75,7 @@ public:
             Type(name)
     {}
 
-    virtual llvm::Type * getType(TypeSystem & typeSys);
+    virtual llvm::Type * toLLVM(TypeSystem & typeSys);
 
     virtual bool isStruct()
     {

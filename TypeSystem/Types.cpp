@@ -1,7 +1,7 @@
 #include "Types.hpp"
 
 
-llvm::Type * Type::getType(TypeSystem & typeSystem)
+llvm::Type * Type::toLLVM(TypeSystem & typeSystem)
 {
     if (name == "int") {
         return typeSystem.intTy;
@@ -23,13 +23,13 @@ llvm::Type * Type::getType(TypeSystem & typeSystem)
 }
 
 
-llvm::Type * ArrayType::getType(TypeSystem & typeSystem)
+llvm::Type * ArrayType::toLLVM(TypeSystem & typeSystem)
 {
-    return llvm::PointerType::get(Type::getType(typeSystem), 0);
+    return llvm::PointerType::get(Type::toLLVM(typeSystem), 0);
 }
 
 
-llvm::Type * StructType::getType(TypeSystem & typeSystem)
+llvm::Type * StructType::toLLVM(TypeSystem & typeSystem)
 {
     return llvm::PointerType::get(typeSystem.getStructType(name), 0);
 }

@@ -103,11 +103,6 @@ llvm::Value * BoolAST::accept(Demux * demux)
     return demux->visit(*this);
 }
 
-bool BoolAST::isBoolean() const
-{
-    return boolean;
-}
-
 llvm::Value * FloatAST::accept(Demux * demux)
 {
     return demux->visit(*this);

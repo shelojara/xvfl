@@ -21,4 +21,6 @@ int main(int argv, char * argc[])
 
     Demux demux(module);
     demux.walkAST(program);
+
+    module.getLLVMModule()->dump();
 }

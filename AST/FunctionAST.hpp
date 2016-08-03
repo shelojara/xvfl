@@ -8,6 +8,7 @@
 
 #include "ExpressionAST.hpp"
 #include "StatementAST.hpp"
+#include "../TypeSystem/Types.hpp"
 
 class Demux;
 class FunctionAST;
@@ -27,6 +28,16 @@ private:
 public:
     ParameterAST(const std::string & name, const std::shared_ptr<Type> & type) : name(name), type(type)
     {}
+
+    std::string getName()
+    {
+        return name;
+    }
+
+    std::shared_ptr<Type> getType()
+    {
+        return type;
+    }
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
@@ -52,6 +63,11 @@ public:
 
     static std::string virtualName(std::string name, std::string version);
 
+    std::string virtualName()
+    {
+        return virtualName(name, version);
+    }
+
     virtual llvm::Value * accept(Demux * demux) override;
 
     const std::string & getName() const
@@ -69,10 +85,7 @@ public:
         return parameters;
     }
 
-    const std::shared_ptr<Type> & getType() const
-    {
-        return type;
-    }
+    std::shared_ptr<Type> getType();
 
     const std::shared_ptr<BlockAST> & getBlock() const
     {
@@ -95,6 +108,8 @@ public:
     }
 
     virtual llvm::Value * accept(Demux * demux) override;
+
+    const StatementList & getStatements() const;
 };
 
 #endif // VFL_FUNCTION_HPP

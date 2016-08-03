@@ -66,6 +66,21 @@ public:
             name(name), type(type), expression(expression)
     {}
 
+    const std::string & getName() const
+    {
+        return name;
+    }
+
+    std::shared_ptr<Type> getType()
+    {
+        return type;
+    }
+
+    std::shared_ptr<ExpressionAST> getExpression()
+    {
+        return expression;
+    }
+
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
@@ -83,6 +98,11 @@ public:
             expression(expression)
     {}
 
+    std::shared_ptr<ExpressionAST> getExpression() const
+    {
+        return expression;
+    }
+
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
@@ -96,6 +116,16 @@ public:
     AssignmentAST(std::shared_ptr<ExpressionAST> left, std::shared_ptr<ExpressionAST> right) :
             left(left), right(right)
     {}
+
+    const std::shared_ptr<ExpressionAST> & getLeft() const
+    {
+        return left;
+    }
+
+    const std::shared_ptr<ExpressionAST> & getRight() const
+    {
+        return right;
+    }
 
     virtual llvm::Value * accept(Demux * demux) override;
 };

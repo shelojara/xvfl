@@ -85,17 +85,17 @@ llvm::Value * Demux::visit(ForAST & node)
 
 llvm::Value * Demux::visit(VarDeclAST & node)
 {
-    return nullptr;
+    return varDeclGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(ExpressionStatementAST & node)
 {
-    return nullptr;
+    return basicValueGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(AssignmentAST & node)
 {
-    return nullptr;
+    return assignmentGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(ReturnAST & node)
@@ -125,5 +125,5 @@ llvm::Value * Demux::visit(StructAssignmentAST & node)
 
 llvm::Value * Demux::visit(ParameterAST & node)
 {
-    return nullptr;
+    return functionGen.emit(module, node);
 }

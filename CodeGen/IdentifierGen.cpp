@@ -1,10 +1,14 @@
-//
-// Created by Marcelo Jara Almeyda on 8/2/16.
-//
-
 #include "IdentifierGen.hpp"
+
+#include <iostream>
 
 llvm::Value * IdentifierGen::emit(VflModule & module, IdentifierAST & node)
 {
-    return nullptr;
+    auto value = module.getScope()->get(node.getName());
+
+    if (value == nullptr) {
+        throw std::runtime_error("Symbol not defined: " + node.getName());
+    }
+
+    return value;
 }

@@ -3,7 +3,6 @@
 
 #include <llvm/IR/Value.h>
 
-#include "../AST/AST.hpp"
 #include "../AST/FunctionAST.hpp"
 #include "../AST/Program.hpp"
 
@@ -17,6 +16,8 @@
 #include "../CodeGen/BasicValueGen.hpp"
 #include "../CodeGen/ArrayGen.hpp"
 #include "../CodeGen/StructGen.hpp"
+#include "../CodeGen/AssignmentGen.hpp"
+#include "../CodeGen/VarDeclGen.hpp"
 
 class FunctionAST;
 class Program;
@@ -46,6 +47,10 @@ private:
 
     StructGen structGen;
 
+    AssignmentGen assignmentGen;
+
+    VarDeclGen varDeclGen;
+
 public:
     Demux(VflModule & module) :
             module(module)
@@ -58,6 +63,8 @@ public:
         basicValueGen.setDemux(this);
         arrayGen.setDemux(this);
         structGen.setDemux(this);
+        assignmentGen.setDemux(this);
+        varDeclGen.setDemux(this);
     }
 
     void walkAST(Program & program);
