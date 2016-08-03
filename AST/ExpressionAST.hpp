@@ -40,8 +40,9 @@ class BinaryOpAST : public ExpressionAST
     std::shared_ptr<ExpressionAST> right;
 
 public:
-    BinaryOpAST(const std::string & op, const std::shared_ptr<ExpressionAST> & left,
-                const std::shared_ptr<ExpressionAST> & right) : op(op), left(left), right(right)
+    BinaryOpAST(std::shared_ptr<ExpressionAST> left, std::string op,
+                std::shared_ptr<ExpressionAST> right) :
+            op(op), left(left), right(right)
     {}
 
     const std::string & getOp() const;
@@ -65,7 +66,7 @@ class FunctionCallAST : public ExpressionAST
     ExpressionList arguments;
 
 public:
-    FunctionCallAST(std::string & name, std::string & version, ExpressionList & arguments) :
+    FunctionCallAST(std::string name, std::string version, ExpressionList & arguments) :
             name(name), version(version), arguments(arguments)
     {}
 

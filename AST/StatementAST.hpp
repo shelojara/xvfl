@@ -101,12 +101,46 @@ public:
 };
 
 
-class Return : public StatementAST
+
+class ArrayAssignmentAST : public StatementAST
+{
+    std::string variable;
+    std::shared_ptr<ExpressionAST> index;
+    std::shared_ptr<ExpressionAST> expression;
+
+public:
+    ArrayAssignmentAST(std::string variable, std::shared_ptr<ExpressionAST> index,
+                    std::shared_ptr<ExpressionAST> expression) :
+            variable(variable), index(index), expression(expression)
+    {}
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
+class StructAssignmentAST : public StatementAST
+{
+    std::string variable;
+    std::string member;
+    std::shared_ptr<ExpressionAST> expression;
+
+public:
+    StructAssignmentAST(std::string variable, std::string member,
+                     std::shared_ptr<ExpressionAST> expression) :
+            variable(variable), member(member), expression(expression)
+    {}
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
+
+class ReturnAST : public StatementAST
 {
     std::shared_ptr<ExpressionAST> expression;
 
 public:
-    Return(std::shared_ptr<ExpressionAST> expression = nullptr) :
+    ReturnAST(std::shared_ptr<ExpressionAST> expression = nullptr) :
             expression(expression)
     {}
 
@@ -129,6 +163,20 @@ public:
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
+
+
+class PrintAST : public StatementAST
+{
+    std::shared_ptr<ExpressionAST> expression;
+
+public:
+    PrintAST(std::shared_ptr<ExpressionAST> expression) :
+            expression(expression)
+    {}
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
 
 
 #endif //VFL_STATEMENTAST_HPP

@@ -1,5 +1,8 @@
 #include "StatementAST.hpp"
 
+#include "../Demux/Demux.hpp"
+
+
 llvm::Value * ForAST::accept(Demux * demux)
 {
     return demux->visit(*this);
@@ -20,12 +23,27 @@ llvm::Value * AssignmentAST::accept(Demux * demux)
     return demux->visit(*this);
 }
 
-llvm::Value * Return::accept(Demux * demux)
+llvm::Value * ReturnAST::accept(Demux * demux)
 {
     return demux->visit(*this);
 }
 
 llvm::Value * IfAST::accept(Demux * demux)
+{
+    return demux->visit(*this);
+}
+
+llvm::Value * PrintAST::accept(Demux * demux)
+{
+    return demux->visit(*this);
+}
+
+llvm::Value * ArrayAssignmentAST::accept(Demux * demux)
+{
+    return demux->visit(*this);
+}
+
+llvm::Value * StructAssignmentAST::accept(Demux * demux)
 {
     return demux->visit(*this);
 }

@@ -1,7 +1,7 @@
-cmake_minimum_required (VERSION 2.8)
-project (vfl)
+cmake_minimum_required(VERSION 2.8)
+project(vfl)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/Cellar/llvm/3.6.2/include  -fPIC -fvisibility-inlines-hidden -Wall -W -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -pedantic -Wno-long-long -Wcovered-switch-default -Wnon-virtual-dtor -std=c++11 -DNDEBUG  -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/Cellar/llvm/3.6.2/include  -fPIC -fvisibility-inlines-hidden -Wall -W -Wno-unused-parameter -Wwrite-strings -Wcast-qual -Wmissing-field-initializers -pedantic -Wno-long-long -Wcovered-switch-default -Wnon-virtual-dtor -std=c++11 -DNDEBUG  -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -L/usr/local/Cellar/llvm/3.6.2/lib -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lLLVMLTO -lLLVMObjCARCOpts -lLLVMLinker -lLLVMBitWriter -lLLVMIRReader -lLLVMAsmParser -lLLVMXCoreDisassembler -lLLVMXCoreCodeGen -lLLVMXCoreDesc -lLLVMXCoreInfo -lLLVMXCoreAsmPrinter -lLLVMSystemZDisassembler -lLLVMSystemZCodeGen -lLLVMSystemZAsmParser -lLLVMSystemZDesc -lLLVMSystemZInfo -lLLVMSystemZAsmPrinter -lLLVMSparcDisassembler -lLLVMSparcCodeGen -lLLVMSparcAsmParser -lLLVMSparcDesc -lLLVMSparcInfo -lLLVMSparcAsmPrinter -lLLVMR600CodeGen -lLLVMipo -lLLVMVectorize -lLLVMR600AsmParser -lLLVMR600Desc -lLLVMR600Info -lLLVMR600AsmPrinter -lLLVMPowerPCDisassembler -lLLVMPowerPCCodeGen -lLLVMPowerPCAsmParser -lLLVMPowerPCDesc -lLLVMPowerPCInfo -lLLVMPowerPCAsmPrinter -lLLVMNVPTXCodeGen -lLLVMNVPTXDesc -lLLVMNVPTXInfo -lLLVMNVPTXAsmPrinter -lLLVMMSP430CodeGen -lLLVMMSP430Desc -lLLVMMSP430Info -lLLVMMSP430AsmPrinter -lLLVMMipsDisassembler -lLLVMMipsCodeGen -lLLVMMipsAsmParser -lLLVMMipsDesc -lLLVMMipsInfo -lLLVMMipsAsmPrinter -lLLVMHexagonDisassembler -lLLVMHexagonCodeGen -lLLVMHexagonDesc -lLLVMHexagonInfo -lLLVMCppBackendCodeGen -lLLVMCppBackendInfo -lLLVMARMDisassembler -lLLVMARMCodeGen -lLLVMARMAsmParser -lLLVMARMDesc -lLLVMARMInfo -lLLVMARMAsmPrinter -lLLVMAArch64Disassembler -lLLVMAArch64CodeGen -lLLVMAArch64AsmParser -lLLVMAArch64Desc -lLLVMAArch64Info -lLLVMAArch64AsmPrinter -lLLVMAArch64Utils -lLLVMTableGen -lLLVMDebugInfo -lLLVMOption -lLLVMX86Disassembler -lLLVMX86AsmParser -lLLVMX86CodeGen -lLLVMSelectionDAG -lLLVMAsmPrinter -lLLVMX86Desc -lLLVMMCDisassembler -lLLVMX86Info -lLLVMX86AsmPrinter -lLLVMX86Utils -lLLVMMCJIT -lLLVMLineEditor -lLLVMInstrumentation -lLLVMInterpreter -lLLVMExecutionEngine -lLLVMRuntimeDyld -lLLVMCodeGen -lLLVMScalarOpts -lLLVMProfileData -lLLVMObject -lLLVMMCParser -lLLVMBitReader -lLLVMInstCombine -lLLVMTransformUtils -lLLVMipa -lLLVMAnalysis -lLLVMTarget -lLLVMMC -lLLVMCore -lLLVMSupport -lcurses -lpthread -lz -lm")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -Wno-redundant-move -Wno-deprecated-register")
 
@@ -13,6 +13,34 @@ set(SOURCES
         Demux/Demux.cpp
         Module/VflModule.cpp
         Module/Scope.cpp
-        AST/Program.cpp AST/NodeAST.cpp AST/NodeAST.hpp AST/ExpressionAST.hpp TypeSystem/TypeSystem.cpp TypeSystem/TypeSystem.hpp Util/NonCopyable.cpp Util/NonCopyable.hpp AST/ExpressionAST.cpp CodeGen/BinaryOpGen.cpp CodeGen/BinaryOpGen.hpp CodeGen/FunctionCallGen.cpp CodeGen/FunctionCallGen.hpp CodeGen/StringGen.cpp CodeGen/StringGen.hpp CodeGen/IdentifierGen.cpp CodeGen/IdentifierGen.hpp CodeGen/BasicValueGen.cpp CodeGen/BasicValueGen.hpp CodeGen/ArrayGen.cpp CodeGen/ArrayGen.hpp CodeGen/StructGen.cpp CodeGen/StructGen.hpp AST/StatementAST.cpp AST/StatementAST.hpp)
+        AST/Program.cpp
+        AST/NodeAST.cpp
+        AST/NodeAST.hpp
+        AST/ExpressionAST.hpp
+        TypeSystem/TypeSystem.cpp
+        TypeSystem/TypeSystem.hpp
+        Util/NonCopyable.cpp
+        Util/NonCopyable.hpp
+        AST/ExpressionAST.cpp
+        CodeGen/BinaryOpGen.cpp
+        CodeGen/BinaryOpGen.hpp
+        CodeGen/FunctionCallGen.cpp
+        CodeGen/FunctionCallGen.hpp
+        CodeGen/StringGen.cpp
+        CodeGen/StringGen.hpp
+        CodeGen/IdentifierGen.cpp
+        CodeGen/IdentifierGen.hpp
+        CodeGen/BasicValueGen.cpp
+        CodeGen/BasicValueGen.hpp
+        CodeGen/ArrayGen.cpp
+        CodeGen/ArrayGen.hpp
+        CodeGen/StructGen.cpp
+        CodeGen/StructGen.hpp
+        AST/StatementAST.cpp
+        AST/StatementAST.hpp
+        Parser/Generated/Parser.cpp
+        Parser/Generated/Lexer.cpp
+        TypeSystem/Types.cpp
+        TypeSystem/Types.hpp AST/StructAST.cpp AST/StructAST.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

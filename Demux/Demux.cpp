@@ -18,6 +18,11 @@ llvm::Value * Demux::visit(FunctionAST & node)
     return functionGen.emit(module, node);
 }
 
+llvm::Value * Demux::visit(BlockAST & node)
+{
+    return nullptr;
+}
+
 llvm::Value * Demux::visit(BinaryOpAST & node)
 {
     return binaryOpGen.emit(module, node);
@@ -71,4 +76,54 @@ llvm::Value * Demux::visit(ArrayIndexAST & node)
 llvm::Value * Demux::visit(StructMemberAST & node)
 {
     return structGen.emit(module, node);
+}
+
+llvm::Value * Demux::visit(ForAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(VarDeclAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(ExpressionStatementAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(AssignmentAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(ReturnAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(IfAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(PrintAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(ArrayAssignmentAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(StructAssignmentAST & node)
+{
+    return nullptr;
+}
+
+llvm::Value * Demux::visit(ParameterAST & node)
+{
+    return nullptr;
 }

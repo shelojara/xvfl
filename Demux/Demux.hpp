@@ -53,6 +53,8 @@ public:
 
     llvm::Value * visit(FunctionAST & node);
 
+    llvm::Value * visit(BlockAST & node);
+
     llvm::Value * visit(BinaryOpAST & node);
 
     llvm::Value * visit(FunctionCallAST & node);
@@ -74,6 +76,26 @@ public:
     llvm::Value * visit(ArrayIndexAST & node);
 
     llvm::Value * visit(StructMemberAST & node);
+
+    llvm::Value * visit(ForAST & node);
+
+    llvm::Value * visit(VarDeclAST & node);
+
+    llvm::Value * visit(ExpressionStatementAST & node);
+
+    llvm::Value * visit(AssignmentAST & node);
+
+    llvm::Value * visit(ReturnAST & node);
+
+    llvm::Value * visit(IfAST & node);
+
+    llvm::Value * visit(PrintAST & node);
+
+    llvm::Value * visit(ArrayAssignmentAST & node);
+
+    llvm::Value * visit(StructAssignmentAST & node);
+
+    llvm::Value * visit(ParameterAST & node);
 };
 
 
