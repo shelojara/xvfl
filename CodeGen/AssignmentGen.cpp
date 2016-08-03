@@ -3,7 +3,8 @@
 
 llvm::Value * AssignmentGen::emit(VflModule & module, AssignmentAST & node)
 {
-    auto target = node.getLeft()->accept(demux);
+    auto ptr = node.getLeft()->accept(demux);
+    auto value = module.loadIfPtr(demux, node.getRight());
 
-    return module.getBuilder().CreateStore(node.getRight()->accept(demux), target);
+    return module.getBuilder().CreateStore(value, ptr);
 }

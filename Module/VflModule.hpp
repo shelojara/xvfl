@@ -2,12 +2,16 @@
 #define VFL_VFLMODULE_HPP
 
 #include <llvm/IR/Module.h>
-#include "../Util/NonCopyable.hpp"
 #include <llvm/IR/IRBuilder.h>
+
+#include "../Util/NonCopyable.hpp"
 #include "../TypeSystem/TypeSystem.hpp"
 #include "Scope.hpp"
 
+
+class Demux;
 class FunctionAST;
+class ExpressionAST;
 
 
 class VflModule : private NonCopyable
@@ -76,6 +80,17 @@ public:
     {
         scopes.pop_back();
     }
+
+    llvm::Function * getFuncAlias(std::string vname)
+    {
+        if (funcAlias.find(vname) == funcAlias.end()) {
+            throw std::runtime_error("Function not defined: " + vname);
+        }
+
+        return funcAlias[vname];
+    }
+
+    llvm::Value * loadIfPtr(Demux * demux, std::shared_ptr<ExpressionAST> node);
 };
 
 

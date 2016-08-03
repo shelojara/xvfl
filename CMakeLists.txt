@@ -28,6 +28,8 @@ set(SOURCES
         Parser/Generated/Lexer.cpp
         TypeSystem/Types.cpp
         AST/StructAST.cpp
-        CodeGen/AssignmentGen.cpp CodeGen/VarDeclGen.cpp CodeGen/VarDeclGen.hpp)
+        CodeGen/AssignmentGen.cpp
+        CodeGen/VarDeclGen.cpp
+        CodeGen/VarDeclGen.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

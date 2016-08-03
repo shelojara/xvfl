@@ -3,8 +3,8 @@
 End
 
 @Main ()
-    var a = false
-    a = true
+    var g = 1
+    var a = g
 
-    print a
+    @Function(a, true)
 End

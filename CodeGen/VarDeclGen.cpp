@@ -6,7 +6,7 @@ llvm::Value * VarDeclGen::emit(VflModule & module, VarDeclAST & node)
     llvm::Value * initial = nullptr;
 
     if (node.getExpression()) {
-        initial = node.getExpression()->accept(demux);
+        initial = module.loadIfPtr(demux, node.getExpression());
     }
 
     llvm::Value * value = nullptr;
