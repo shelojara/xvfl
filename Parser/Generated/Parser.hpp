@@ -50,24 +50,23 @@
      FOR = 266,
      TRUE = 267,
      FALSE = 268,
-     PRINT_F = 269,
-     PLUS = 270,
-     MINUS = 271,
-     MULT = 272,
-     DIV = 273,
-     EQ = 274,
-     NEQ = 275,
-     LESS = 276,
-     GREATER = 277,
-     LEQ = 278,
-     GEQ = 279,
-     MOD = 280,
-     INTEGER = 281,
-     FLOAT = 282,
-     FUNCTION_NAME = 283,
-     STRUCT_NAME = 284,
-     IDENTIFIER = 285,
-     STRING = 286
+     PLUS = 269,
+     MINUS = 270,
+     MULT = 271,
+     DIV = 272,
+     EQ = 273,
+     NEQ = 274,
+     LESS = 275,
+     GREATER = 276,
+     LEQ = 277,
+     GEQ = 278,
+     MOD = 279,
+     INTEGER = 280,
+     FLOAT = 281,
+     FUNCTION_NAME = 282,
+     STRUCT_NAME = 283,
+     IDENTIFIER = 284,
+     STRING = 285
    };
 #endif
 /* Tokens.  */
@@ -82,31 +81,30 @@
 #define FOR 266
 #define TRUE 267
 #define FALSE 268
-#define PRINT_F 269
-#define PLUS 270
-#define MINUS 271
-#define MULT 272
-#define DIV 273
-#define EQ 274
-#define NEQ 275
-#define LESS 276
-#define GREATER 277
-#define LEQ 278
-#define GEQ 279
-#define MOD 280
-#define INTEGER 281
-#define FLOAT 282
-#define FUNCTION_NAME 283
-#define STRUCT_NAME 284
-#define IDENTIFIER 285
-#define STRING 286
+#define PLUS 269
+#define MINUS 270
+#define MULT 271
+#define DIV 272
+#define EQ 273
+#define NEQ 274
+#define LESS 275
+#define GREATER 276
+#define LEQ 277
+#define GEQ 278
+#define MOD 279
+#define INTEGER 280
+#define FLOAT 281
+#define FUNCTION_NAME 282
+#define STRUCT_NAME 283
+#define IDENTIFIER 284
+#define STRING 285
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 25 "Parser.y"
+#line 23 "Parser.y"
 {
 	ParameterList * parameterList;
 	ExpressionList * expressionList;
@@ -124,7 +122,7 @@ typedef union YYSTYPE
 	float floatNumber;
 }
 /* Line 1529 of yacc.c.  */
-#line 128 "Generated/Parser.hpp"
+#line 126 "Generated/Parser.hpp"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

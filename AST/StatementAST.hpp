@@ -89,12 +89,12 @@ public:
 
 class AssignmentAST : public StatementAST
 {
-    std::string variable;
-    std::shared_ptr<ExpressionAST> expression;
+    std::shared_ptr<ExpressionAST> left;
+    std::shared_ptr<ExpressionAST> right;
 
 public:
-    AssignmentAST(std::string variable, std::shared_ptr<ExpressionAST> expression) :
-            variable(variable), expression(expression)
+    AssignmentAST(std::shared_ptr<ExpressionAST> left, std::shared_ptr<ExpressionAST> right) :
+            left(left), right(right)
     {}
 
     virtual llvm::Value * accept(Demux * demux) override;

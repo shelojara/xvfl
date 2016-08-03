@@ -41,6 +41,6 @@ set(SOURCES
         Parser/Generated/Parser.cpp
         Parser/Generated/Lexer.cpp
         TypeSystem/Types.cpp
-        TypeSystem/Types.hpp AST/StructAST.cpp AST/StructAST.hpp)
+        TypeSystem/Types.hpp AST/StructAST.cpp AST/StructAST.hpp Demux/DemuxComponent.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

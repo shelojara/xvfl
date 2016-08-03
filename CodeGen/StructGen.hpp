@@ -4,8 +4,9 @@
 
 #include "Generator.hpp"
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class StructGen : public Generator<StructMemberAST>
+class StructGen : public DemuxComponent, public Generator<StructMemberAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, StructMemberAST & node) override;

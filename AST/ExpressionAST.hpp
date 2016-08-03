@@ -226,17 +226,17 @@ public:
  */
 class StructMemberAST : public ExpressionAST
 {
-    std::string variable;
+    std::shared_ptr<ExpressionAST> left;
     std::string member;
 
 public:
-    StructMemberAST(std::string variable, std::string member) :
-            variable(variable), member(member)
+    StructMemberAST(std::shared_ptr<ExpressionAST> left, std::string member) :
+            left(left), member(member)
     {}
 
-    const std::string & getVariable() const;
-
     const std::string & getMember() const;
+
+    const std::shared_ptr<ExpressionAST> & getLeft() const;
 
     virtual llvm::Value * accept(Demux * demux) override;
 };

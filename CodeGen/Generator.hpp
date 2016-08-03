@@ -5,6 +5,9 @@
 #include "../Module/VflModule.hpp"
 
 
+class Demux;
+
+
 template <typename T>
 class Generator : private NonCopyable
 {

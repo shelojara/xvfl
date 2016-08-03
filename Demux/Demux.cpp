@@ -3,12 +3,12 @@
 #include "../CodeGen/FunctionGen.hpp"
 #include "../AST/Program.hpp"
 
-void Demux::walkAST(Program * program)
+void Demux::walkAST(Program & program)
 {
     // FIXME: this method should provably be it's own class.
 
     // emit all the functions.
-    for (auto function : program->getFunctionList()) {
+    for (auto function : program.getFunctionList()) {
         function->accept(this);
     }
 }
@@ -20,7 +20,7 @@ llvm::Value * Demux::visit(FunctionAST & node)
 
 llvm::Value * Demux::visit(BlockAST & node)
 {
-    return nullptr;
+    return functionGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(BinaryOpAST & node)

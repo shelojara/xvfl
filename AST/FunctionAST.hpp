@@ -53,6 +53,31 @@ public:
     static std::string virtualName(std::string name, std::string version);
 
     virtual llvm::Value * accept(Demux * demux) override;
+
+    const std::string & getName() const
+    {
+        return name;
+    }
+
+    const std::string & getVersion() const
+    {
+        return version;
+    }
+
+    const ParameterList & getParameters() const
+    {
+        return parameters;
+    }
+
+    const std::shared_ptr<Type> & getType() const
+    {
+        return type;
+    }
+
+    const std::shared_ptr<BlockAST> & getBlock() const
+    {
+        return block;
+    }
 };
 
 

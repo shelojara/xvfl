@@ -10,3 +10,6 @@ clean:
 	rm -f Generated/*.cpp Generated/*.hpp
 
 main: clean Generated/Parser.cpp Generated/Lexer.cpp
+
+debug:
+	bison --debug --verbose -d -o Generated/Parser.cpp Parser.y

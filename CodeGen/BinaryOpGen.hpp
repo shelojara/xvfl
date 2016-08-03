@@ -4,8 +4,9 @@
 
 #include <llvm/IR/Value.h>
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class BinaryOpGen : public Generator<BinaryOpAST>
+class BinaryOpGen : public DemuxComponent, public Generator<BinaryOpAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, BinaryOpAST & node) override;

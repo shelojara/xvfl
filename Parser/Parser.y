@@ -9,8 +9,6 @@
 
 	size_t yyline = 1;
 
-	int yydebug = 1;
-
 	extern int yylex();
 
 	extern Program program;
@@ -41,7 +39,7 @@
 
 %error-verbose
 
-%token VAR ASSIGN END RETURN IF ELSE PRINT VOID FOR TRUE FALSE PRINT_F
+%token VAR ASSIGN END RETURN IF ELSE PRINT VOID FOR TRUE FALSE
 
 %token <token> PLUS MINUS MULT DIV EQ NEQ LESS GREATER LEQ GEQ MOD
 %token <integer> INTEGER
@@ -54,7 +52,7 @@
 %type <block> block
 %type <type> typeName
 %type <statement> statement assignment return variableDeclaration if print for
-%type <expression> expression versionInv functionCall
+%type <expression> expression versionInv functionCall arraySelector
 %type <expressionList> expressionList
 
 %left EQ NEQ
@@ -62,8 +60,9 @@
 %left LEQ GEQ
 %left PLUS MINUS
 %left MULT DIV MOD
+%left '.'
 
-%right IDENTIFIER '['
+%right IDENTIFIER ASSIGN '['
 
 %start program
 
@@ -197,35 +196,23 @@ statement:
 	;
 
 assignment:
-	IDENTIFIER ASSIGN expression
+	expression ASSIGN expression
 	{
-		$$ = new AssignmentAST(*$1, std::shared_ptr<ExpressionAST>($3));
-	}
-	| IDENTIFIER '[' expression ']' ASSIGN expression
-	{
-		$$ = new ArrayAssignmentAST(*$1, std::shared_ptr<ExpressionAST>($3),
-		        std::shared_ptr<ExpressionAST>($6));
-	}
-	| IDENTIFIER '.' IDENTIFIER ASSIGN expression
-	{
-		$$ = new StructAssignmentAST(*$1, *$3, std::shared_ptr<ExpressionAST>($5));
+		$$ = new AssignmentAST(std::shared_ptr<ExpressionAST>($1), std::shared_ptr<ExpressionAST>($3));
 	}
 	;
 
 expression:
 	functionCall
 	| versionInv
+	| arraySelector
+	| expression '.' IDENTIFIER
+	{
+	    $$ = new StructMemberAST(std::shared_ptr<ExpressionAST>($1), *$3);
+	}
 	| STRING
 	{
 		$$ = new StringAST(*$1);
-	}
-	| IDENTIFIER '[' expression ']'
-	{
-		$$ = new ArrayIndexAST(*$1, std::shared_ptr<ExpressionAST>($3));
-	}
-	| IDENTIFIER '.' IDENTIFIER
-	{
-		$$ = new StructMemberAST(*$1, *$3);
 	}
 	| IDENTIFIER
 	{
@@ -321,6 +308,10 @@ versionInv:
 		$$ = new VersionInvAST(*$3, *$5);
 	}
 	;
+
+arraySelector:
+    expression '[' expression ']'
+    ;
 
 expressionList:
 	// empty

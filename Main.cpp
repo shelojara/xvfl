@@ -16,7 +16,9 @@ int main(int argv, char * argc[])
 {
     VflModule module;
 
+    freopen(argc[1], "r", stdin);
     yyparse();
 
     Demux demux(module);
+    demux.walkAST(program);
 }

@@ -4,8 +4,9 @@
 
 #include "Generator.hpp"
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class BasicValueGen : public Generator<IntegerAST>,
+class BasicValueGen : public DemuxComponent, public Generator<IntegerAST>,
                       public Generator<FloatAST>,
                       public Generator<BoolAST>
 {

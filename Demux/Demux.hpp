@@ -47,9 +47,20 @@ private:
     StructGen structGen;
 
 public:
-    Demux(VflModule & module) : module(module) {}
+    Demux(VflModule & module) :
+            module(module)
+    {
+        functionGen.setDemux(this);
+        binaryOpGen.setDemux(this);
+        functionCallGen.setDemux(this);
+        stringGen.setDemux(this);
+        identifierGen.setDemux(this);
+        basicValueGen.setDemux(this);
+        arrayGen.setDemux(this);
+        structGen.setDemux(this);
+    }
 
-    void walkAST(Program * program);
+    void walkAST(Program & program);
 
     llvm::Value * visit(FunctionAST & node);
 

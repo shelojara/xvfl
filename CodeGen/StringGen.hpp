@@ -3,8 +3,9 @@
 
 
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class StringGen : public Generator<StringAST>
+class StringGen : public DemuxComponent, public Generator<StringAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, StringAST & node) override;

@@ -4,8 +4,9 @@
 
 #include "Generator.hpp"
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class FunctionCallGen : public Generator<FunctionCallAST>, public Generator<VersionInvAST>
+class FunctionCallGen : public DemuxComponent, public Generator<FunctionCallAST>, public Generator<VersionInvAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, FunctionCallAST & node) override;

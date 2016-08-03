@@ -1,0 +1,2729 @@
+State 75 conflicts: 1 shift/reduce
+State 108 conflicts: 1 shift/reduce
+State 110 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: /* empty */
+    2        | program function
+    3        | program struct
+
+    4 function: FUNCTION_NAME '(' parameterList ')' block END
+    5         | FUNCTION_NAME '(' parameterList ')' ':' typeName block END
+    6         | FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' block END
+    7         | FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' ':' typeName block END
+
+    8 parameterList: /* empty */
+    9              | parameterList ',' typeName IDENTIFIER
+   10              | typeName IDENTIFIER
+
+   11 struct: STRUCT_NAME structMembers END
+
+   12 structMembers: /* empty */
+   13              | structMembers IDENTIFIER IDENTIFIER
+   14              | structMembers STRUCT_NAME IDENTIFIER
+
+   15 variableDeclaration: VAR IDENTIFIER ':' typeName ASSIGN expression
+   16                    | VAR IDENTIFIER ASSIGN expression
+   17                    | VAR IDENTIFIER ':' typeName
+
+   18 typeName: IDENTIFIER
+   19         | IDENTIFIER '[' expression ']'
+   20         | STRUCT_NAME
+   21         | IDENTIFIER '[' ']'
+
+   22 block: /* empty */
+   23      | block statement
+
+   24 statement: assignment
+   25          | expression
+   26          | return
+   27          | variableDeclaration
+   28          | if
+   29          | print
+   30          | for
+
+   31 assignment: expression ASSIGN expression
+
+   32 expression: functionCall
+   33           | versionInv
+   34           | arraySelector
+   35           | expression '.' IDENTIFIER
+   36           | STRING
+   37           | IDENTIFIER '[' expression ']'
+   38           | IDENTIFIER '.' IDENTIFIER
+   39           | IDENTIFIER
+   40           | INTEGER
+   41           | FLOAT
+   42           | expression PLUS expression
+   43           | expression MULT expression
+   44           | expression DIV expression
+   45           | expression MINUS expression
+   46           | expression EQ expression
+   47           | expression NEQ expression
+   48           | expression LESS expression
+   49           | expression GREATER expression
+   50           | expression LEQ expression
+   51           | expression GEQ expression
+   52           | expression MOD expression
+   53           | '(' expression ')'
+   54           | '[' expressionList ']'
+   55           | TRUE
+   56           | FALSE
+
+   57 functionCall: FUNCTION_NAME '(' expressionList ')'
+   58             | FUNCTION_NAME '(' IDENTIFIER ';' expressionList ')'
+
+   59 versionInv: '@' '(' expressionList ')'
+   60           | '@' '(' IDENTIFIER ';' expressionList ')'
+
+   61 arraySelector: expression '[' expression ']'
+
+   62 expressionList: /* empty */
+   63               | expressionList ',' expression
+   64               | expression
+
+   65 return: RETURN VOID
+   66       | RETURN expression
+
+   67 if: IF expression '{' block '}'
+   68   | IF expression '{' block '}' ELSE '{' block '}'
+
+   69 print: PRINT expression
+
+   70 for: FOR IDENTIFIER ASSIGN expression ',' expression '{' block '}'
+   71    | FOR IDENTIFIER ASSIGN expression ',' expression ',' expression '{' block '}'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'(' (40) 4 5 6 7 53 57 58 59 60
+')' (41) 4 5 6 7 53 57 58 59 60
+',' (44) 9 63 70 71
+'.' (46) 35 38
+':' (58) 5 7 15 17
+';' (59) 6 7 58 60
+'@' (64) 59 60
+'[' (91) 19 21 37 54 61
+']' (93) 19 21 37 54 61
+'{' (123) 67 68 70 71
+'}' (125) 67 68 70 71
+error (256)
+VAR (258) 15 16 17
+ASSIGN (259) 15 16 31 70 71
+END (260) 4 5 6 7 11
+RETURN (261) 65 66
+IF (262) 67 68
+ELSE (263) 68
+PRINT (264) 69
+VOID (265) 65
+FOR (266) 70 71
+TRUE (267) 55
+FALSE (268) 56
+PLUS (269) 42
+MINUS (270) 45
+MULT (271) 43
+DIV (272) 44
+EQ (273) 46
+NEQ (274) 47
+LESS (275) 48
+GREATER (276) 49
+LEQ (277) 50
+GEQ (278) 51
+MOD (279) 52
+INTEGER (280) 40
+FLOAT (281) 41
+FUNCTION_NAME (282) 4 5 6 7 57 58
+STRUCT_NAME (283) 11 14 20
+IDENTIFIER (284) 6 7 9 10 13 14 15 16 17 18 19 21 35 37 38 39 58 60
+    70 71
+STRING (285) 36
+
+
+Nonterminals, with rules where they appear
+
+$accept (42)
+    on left: 0
+program (43)
+    on left: 1 2 3, on right: 0 2 3
+function (44)
+    on left: 4 5 6 7, on right: 2
+parameterList (45)
+    on left: 8 9 10, on right: 4 5 6 7 9
+struct (46)
+    on left: 11, on right: 3
+structMembers (47)
+    on left: 12 13 14, on right: 11 13 14
+variableDeclaration (48)
+    on left: 15 16 17, on right: 27
+typeName (49)
+    on left: 18 19 20 21, on right: 5 7 9 10 15 17
+block (50)
+    on left: 22 23, on right: 4 5 6 7 23 67 68 70 71
+statement (51)
+    on left: 24 25 26 27 28 29 30, on right: 23
+assignment (52)
+    on left: 31, on right: 24
+expression (53)
+    on left: 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49
+    50 51 52 53 54 55 56, on right: 15 16 19 25 31 35 37 42 43 44 45
+    46 47 48 49 50 51 52 53 61 63 64 66 67 68 69 70 71
+functionCall (54)
+    on left: 57 58, on right: 32
+versionInv (55)
+    on left: 59 60, on right: 33
+arraySelector (56)
+    on left: 61, on right: 34
+expressionList (57)
+    on left: 62 63 64, on right: 54 57 58 59 60 63
+return (58)
+    on left: 65 66, on right: 26
+if (59)
+    on left: 67 68, on right: 28
+print (60)
+    on left: 69, on right: 29
+for (61)
+    on left: 70 71, on right: 30
+
+
+state 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 1 (program)
+
+    program  go to state 1
+
+
+state 1
+
+    0 $accept: program . $end
+    2 program: program . function
+    3        | program . struct
+
+    $end           shift, and go to state 2
+    FUNCTION_NAME  shift, and go to state 3
+    STRUCT_NAME    shift, and go to state 4
+
+    function  go to state 5
+    struct    go to state 6
+
+
+state 2
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 3
+
+    4 function: FUNCTION_NAME . '(' parameterList ')' block END
+    5         | FUNCTION_NAME . '(' parameterList ')' ':' typeName block END
+    6         | FUNCTION_NAME . '(' IDENTIFIER ';' parameterList ')' block END
+    7         | FUNCTION_NAME . '(' IDENTIFIER ';' parameterList ')' ':' typeName block END
+
+    '('  shift, and go to state 7
+
+
+state 4
+
+   11 struct: STRUCT_NAME . structMembers END
+
+    $default  reduce using rule 12 (structMembers)
+
+    structMembers  go to state 8
+
+
+state 5
+
+    2 program: program function .
+
+    $default  reduce using rule 2 (program)
+
+
+state 6
+
+    3 program: program struct .
+
+    $default  reduce using rule 3 (program)
+
+
+state 7
+
+    4 function: FUNCTION_NAME '(' . parameterList ')' block END
+    5         | FUNCTION_NAME '(' . parameterList ')' ':' typeName block END
+    6         | FUNCTION_NAME '(' . IDENTIFIER ';' parameterList ')' block END
+    7         | FUNCTION_NAME '(' . IDENTIFIER ';' parameterList ')' ':' typeName block END
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 10
+
+    $default  reduce using rule 8 (parameterList)
+
+    parameterList  go to state 11
+    typeName       go to state 12
+
+
+state 8
+
+   11 struct: STRUCT_NAME structMembers . END
+   13 structMembers: structMembers . IDENTIFIER IDENTIFIER
+   14              | structMembers . STRUCT_NAME IDENTIFIER
+
+    END          shift, and go to state 13
+    STRUCT_NAME  shift, and go to state 14
+    IDENTIFIER   shift, and go to state 15
+
+
+state 9
+
+   20 typeName: STRUCT_NAME .
+
+    $default  reduce using rule 20 (typeName)
+
+
+state 10
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER . ';' parameterList ')' block END
+    7         | FUNCTION_NAME '(' IDENTIFIER . ';' parameterList ')' ':' typeName block END
+   18 typeName: IDENTIFIER .
+   19         | IDENTIFIER . '[' expression ']'
+   21         | IDENTIFIER . '[' ']'
+
+    '['  shift, and go to state 16
+    ';'  shift, and go to state 17
+
+    $default  reduce using rule 18 (typeName)
+
+
+state 11
+
+    4 function: FUNCTION_NAME '(' parameterList . ')' block END
+    5         | FUNCTION_NAME '(' parameterList . ')' ':' typeName block END
+    9 parameterList: parameterList . ',' typeName IDENTIFIER
+
+    ')'  shift, and go to state 18
+    ','  shift, and go to state 19
+
+
+state 12
+
+   10 parameterList: typeName . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 20
+
+
+state 13
+
+   11 struct: STRUCT_NAME structMembers END .
+
+    $default  reduce using rule 11 (struct)
+
+
+state 14
+
+   14 structMembers: structMembers STRUCT_NAME . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 21
+
+
+state 15
+
+   13 structMembers: structMembers IDENTIFIER . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 22
+
+
+state 16
+
+   19 typeName: IDENTIFIER '[' . expression ']'
+   21         | IDENTIFIER '[' . ']'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    ']'            shift, and go to state 32
+    '@'            shift, and go to state 33
+
+    expression     go to state 34
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 17
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER ';' . parameterList ')' block END
+    7         | FUNCTION_NAME '(' IDENTIFIER ';' . parameterList ')' ':' typeName block END
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 38
+
+    $default  reduce using rule 8 (parameterList)
+
+    parameterList  go to state 39
+    typeName       go to state 12
+
+
+state 18
+
+    4 function: FUNCTION_NAME '(' parameterList ')' . block END
+    5         | FUNCTION_NAME '(' parameterList ')' . ':' typeName block END
+
+    ':'  shift, and go to state 40
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 41
+
+
+state 19
+
+    9 parameterList: parameterList ',' . typeName IDENTIFIER
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 38
+
+    typeName  go to state 42
+
+
+state 20
+
+   10 parameterList: typeName IDENTIFIER .
+
+    $default  reduce using rule 10 (parameterList)
+
+
+state 21
+
+   14 structMembers: structMembers STRUCT_NAME IDENTIFIER .
+
+    $default  reduce using rule 14 (structMembers)
+
+
+state 22
+
+   13 structMembers: structMembers IDENTIFIER IDENTIFIER .
+
+    $default  reduce using rule 13 (structMembers)
+
+
+state 23
+
+   55 expression: TRUE .
+
+    $default  reduce using rule 55 (expression)
+
+
+state 24
+
+   56 expression: FALSE .
+
+    $default  reduce using rule 56 (expression)
+
+
+state 25
+
+   40 expression: INTEGER .
+
+    $default  reduce using rule 40 (expression)
+
+
+state 26
+
+   41 expression: FLOAT .
+
+    $default  reduce using rule 41 (expression)
+
+
+state 27
+
+   57 functionCall: FUNCTION_NAME . '(' expressionList ')'
+   58             | FUNCTION_NAME . '(' IDENTIFIER ';' expressionList ')'
+
+    '('  shift, and go to state 43
+
+
+state 28
+
+   37 expression: IDENTIFIER . '[' expression ']'
+   38           | IDENTIFIER . '.' IDENTIFIER
+   39           | IDENTIFIER .
+
+    '['  shift, and go to state 45
+
+    $default  reduce using rule 39 (expression)
+
+
+state 29
+
+   36 expression: STRING .
+
+    $default  reduce using rule 36 (expression)
+
+
+state 30
+
+   54 expression: '[' . expressionList ']'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    $default  reduce using rule 62 (expressionList)
+
+    expression      go to state 46
+    functionCall    go to state 35
+    versionInv      go to state 36
+    arraySelector   go to state 37
+    expressionList  go to state 47
+
+
+state 31
+
+   53 expression: '(' . expression ')'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 48
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 32
+
+   21 typeName: IDENTIFIER '[' ']' .
+
+    $default  reduce using rule 21 (typeName)
+
+
+state 33
+
+   59 versionInv: '@' . '(' expressionList ')'
+   60           | '@' . '(' IDENTIFIER ';' expressionList ')'
+
+    '('  shift, and go to state 49
+
+
+state 34
+
+   19 typeName: IDENTIFIER '[' expression . ']'
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ']'      shift, and go to state 63
+
+
+state 35
+
+   32 expression: functionCall .
+
+    $default  reduce using rule 32 (expression)
+
+
+state 36
+
+   33 expression: versionInv .
+
+    $default  reduce using rule 33 (expression)
+
+
+state 37
+
+   34 expression: arraySelector .
+
+    $default  reduce using rule 34 (expression)
+
+
+state 38
+
+   18 typeName: IDENTIFIER .
+   19         | IDENTIFIER . '[' expression ']'
+   21         | IDENTIFIER . '[' ']'
+
+    '['  shift, and go to state 16
+
+    $default  reduce using rule 18 (typeName)
+
+
+state 39
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList . ')' block END
+    7         | FUNCTION_NAME '(' IDENTIFIER ';' parameterList . ')' ':' typeName block END
+    9 parameterList: parameterList . ',' typeName IDENTIFIER
+
+    ')'  shift, and go to state 64
+    ','  shift, and go to state 19
+
+
+state 40
+
+    5 function: FUNCTION_NAME '(' parameterList ')' ':' . typeName block END
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 38
+
+    typeName  go to state 65
+
+
+state 41
+
+    4 function: FUNCTION_NAME '(' parameterList ')' block . END
+   23 block: block . statement
+
+    VAR            shift, and go to state 66
+    END            shift, and go to state 67
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 42
+
+    9 parameterList: parameterList ',' typeName . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 80
+
+
+state 43
+
+   57 functionCall: FUNCTION_NAME '(' . expressionList ')'
+   58             | FUNCTION_NAME '(' . IDENTIFIER ';' expressionList ')'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 81
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    $default  reduce using rule 62 (expressionList)
+
+    expression      go to state 46
+    functionCall    go to state 35
+    versionInv      go to state 36
+    arraySelector   go to state 37
+    expressionList  go to state 82
+
+
+state 44
+
+   38 expression: IDENTIFIER '.' . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 83
+
+
+state 45
+
+   37 expression: IDENTIFIER '[' . expression ']'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 84
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 46
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   64 expressionList: expression .
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 64 (expressionList)
+
+
+state 47
+
+   54 expression: '[' expressionList . ']'
+   63 expressionList: expressionList . ',' expression
+
+    ','  shift, and go to state 85
+    ']'  shift, and go to state 86
+
+
+state 48
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   53           | '(' expression . ')'
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ')'      shift, and go to state 87
+
+
+state 49
+
+   59 versionInv: '@' '(' . expressionList ')'
+   60           | '@' '(' . IDENTIFIER ';' expressionList ')'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 88
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    $default  reduce using rule 62 (expressionList)
+
+    expression      go to state 46
+    functionCall    go to state 35
+    versionInv      go to state 36
+    arraySelector   go to state 37
+    expressionList  go to state 89
+
+
+state 50
+
+   42 expression: expression PLUS . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 90
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 51
+
+   45 expression: expression MINUS . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 91
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 52
+
+   43 expression: expression MULT . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 92
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 53
+
+   44 expression: expression DIV . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 93
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 54
+
+   46 expression: expression EQ . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 94
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 55
+
+   47 expression: expression NEQ . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 95
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 56
+
+   48 expression: expression LESS . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 96
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 57
+
+   49 expression: expression GREATER . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 97
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 58
+
+   50 expression: expression LEQ . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 98
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 59
+
+   51 expression: expression GEQ . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 99
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 60
+
+   52 expression: expression MOD . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 100
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 61
+
+   35 expression: expression '.' . IDENTIFIER
+
+    IDENTIFIER  shift, and go to state 101
+
+
+state 62
+
+   61 arraySelector: expression '[' . expression ']'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 102
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 63
+
+   19 typeName: IDENTIFIER '[' expression ']' .
+
+    $default  reduce using rule 19 (typeName)
+
+
+state 64
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' . block END
+    7         | FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' . ':' typeName block END
+
+    ':'  shift, and go to state 103
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 104
+
+
+state 65
+
+    5 function: FUNCTION_NAME '(' parameterList ')' ':' typeName . block END
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 105
+
+
+state 66
+
+   15 variableDeclaration: VAR . IDENTIFIER ':' typeName ASSIGN expression
+   16                    | VAR . IDENTIFIER ASSIGN expression
+   17                    | VAR . IDENTIFIER ':' typeName
+
+    IDENTIFIER  shift, and go to state 106
+
+
+state 67
+
+    4 function: FUNCTION_NAME '(' parameterList ')' block END .
+
+    $default  reduce using rule 4 (function)
+
+
+state 68
+
+   65 return: RETURN . VOID
+   66       | RETURN . expression
+
+    VOID           shift, and go to state 107
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 108
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 69
+
+   67 if: IF . expression '{' block '}'
+   68   | IF . expression '{' block '}' ELSE '{' block '}'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 109
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 70
+
+   69 print: PRINT . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 110
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 71
+
+   70 for: FOR . IDENTIFIER ASSIGN expression ',' expression '{' block '}'
+   71    | FOR . IDENTIFIER ASSIGN expression ',' expression ',' expression '{' block '}'
+
+    IDENTIFIER  shift, and go to state 111
+
+
+state 72
+
+   27 statement: variableDeclaration .
+
+    $default  reduce using rule 27 (statement)
+
+
+state 73
+
+   23 block: block statement .
+
+    $default  reduce using rule 23 (block)
+
+
+state 74
+
+   24 statement: assignment .
+
+    $default  reduce using rule 24 (statement)
+
+
+state 75
+
+   25 statement: expression .
+   31 assignment: expression . ASSIGN expression
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    ASSIGN   shift, and go to state 112
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    '['       [reduce using rule 25 (statement)]
+    $default  reduce using rule 25 (statement)
+
+
+state 76
+
+   26 statement: return .
+
+    $default  reduce using rule 26 (statement)
+
+
+state 77
+
+   28 statement: if .
+
+    $default  reduce using rule 28 (statement)
+
+
+state 78
+
+   29 statement: print .
+
+    $default  reduce using rule 29 (statement)
+
+
+state 79
+
+   30 statement: for .
+
+    $default  reduce using rule 30 (statement)
+
+
+state 80
+
+    9 parameterList: parameterList ',' typeName IDENTIFIER .
+
+    $default  reduce using rule 9 (parameterList)
+
+
+state 81
+
+   37 expression: IDENTIFIER . '[' expression ']'
+   38           | IDENTIFIER . '.' IDENTIFIER
+   39           | IDENTIFIER .
+   58 functionCall: FUNCTION_NAME '(' IDENTIFIER . ';' expressionList ')'
+
+    '['  shift, and go to state 45
+    ';'  shift, and go to state 113
+
+    $default  reduce using rule 39 (expression)
+
+
+state 82
+
+   57 functionCall: FUNCTION_NAME '(' expressionList . ')'
+   63 expressionList: expressionList . ',' expression
+
+    ')'  shift, and go to state 114
+    ','  shift, and go to state 85
+
+
+state 83
+
+   38 expression: IDENTIFIER '.' IDENTIFIER .
+
+    $default  reduce using rule 38 (expression)
+
+
+state 84
+
+   35 expression: expression . '.' IDENTIFIER
+   37           | IDENTIFIER '[' expression . ']'
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ']'      shift, and go to state 115
+
+
+state 85
+
+   63 expressionList: expressionList ',' . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 116
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 86
+
+   54 expression: '[' expressionList ']' .
+
+    $default  reduce using rule 54 (expression)
+
+
+state 87
+
+   53 expression: '(' expression ')' .
+
+    $default  reduce using rule 53 (expression)
+
+
+state 88
+
+   37 expression: IDENTIFIER . '[' expression ']'
+   38           | IDENTIFIER . '.' IDENTIFIER
+   39           | IDENTIFIER .
+   60 versionInv: '@' '(' IDENTIFIER . ';' expressionList ')'
+
+    '['  shift, and go to state 45
+    ';'  shift, and go to state 117
+
+    $default  reduce using rule 39 (expression)
+
+
+state 89
+
+   59 versionInv: '@' '(' expressionList . ')'
+   63 expressionList: expressionList . ',' expression
+
+    ')'  shift, and go to state 118
+    ','  shift, and go to state 85
+
+
+state 90
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   42           | expression PLUS expression .
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    MULT  shift, and go to state 52
+    DIV   shift, and go to state 53
+    MOD   shift, and go to state 60
+    '.'   shift, and go to state 61
+    '['   shift, and go to state 62
+
+    $default  reduce using rule 42 (expression)
+
+
+state 91
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   45           | expression MINUS expression .
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    MULT  shift, and go to state 52
+    DIV   shift, and go to state 53
+    MOD   shift, and go to state 60
+    '.'   shift, and go to state 61
+    '['   shift, and go to state 62
+
+    $default  reduce using rule 45 (expression)
+
+
+state 92
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   43           | expression MULT expression .
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    '.'  shift, and go to state 61
+    '['  shift, and go to state 62
+
+    $default  reduce using rule 43 (expression)
+
+
+state 93
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   44           | expression DIV expression .
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    '.'  shift, and go to state 61
+    '['  shift, and go to state 62
+
+    $default  reduce using rule 44 (expression)
+
+
+state 94
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   46           | expression EQ expression .
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 46 (expression)
+
+
+state 95
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   47           | expression NEQ expression .
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 47 (expression)
+
+
+state 96
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   48           | expression LESS expression .
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS   shift, and go to state 50
+    MINUS  shift, and go to state 51
+    MULT   shift, and go to state 52
+    DIV    shift, and go to state 53
+    LEQ    shift, and go to state 58
+    GEQ    shift, and go to state 59
+    MOD    shift, and go to state 60
+    '.'    shift, and go to state 61
+    '['    shift, and go to state 62
+
+    $default  reduce using rule 48 (expression)
+
+
+state 97
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   49           | expression GREATER expression .
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS   shift, and go to state 50
+    MINUS  shift, and go to state 51
+    MULT   shift, and go to state 52
+    DIV    shift, and go to state 53
+    LEQ    shift, and go to state 58
+    GEQ    shift, and go to state 59
+    MOD    shift, and go to state 60
+    '.'    shift, and go to state 61
+    '['    shift, and go to state 62
+
+    $default  reduce using rule 49 (expression)
+
+
+state 98
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   50           | expression LEQ expression .
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS   shift, and go to state 50
+    MINUS  shift, and go to state 51
+    MULT   shift, and go to state 52
+    DIV    shift, and go to state 53
+    MOD    shift, and go to state 60
+    '.'    shift, and go to state 61
+    '['    shift, and go to state 62
+
+    $default  reduce using rule 50 (expression)
+
+
+state 99
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   51           | expression GEQ expression .
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS   shift, and go to state 50
+    MINUS  shift, and go to state 51
+    MULT   shift, and go to state 52
+    DIV    shift, and go to state 53
+    MOD    shift, and go to state 60
+    '.'    shift, and go to state 61
+    '['    shift, and go to state 62
+
+    $default  reduce using rule 51 (expression)
+
+
+state 100
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   52           | expression MOD expression .
+   61 arraySelector: expression . '[' expression ']'
+
+    '.'  shift, and go to state 61
+    '['  shift, and go to state 62
+
+    $default  reduce using rule 52 (expression)
+
+
+state 101
+
+   35 expression: expression '.' IDENTIFIER .
+
+    $default  reduce using rule 35 (expression)
+
+
+state 102
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   61              | expression '[' expression . ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ']'      shift, and go to state 119
+
+
+state 103
+
+    7 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' ':' . typeName block END
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 38
+
+    typeName  go to state 120
+
+
+state 104
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' block . END
+   23 block: block . statement
+
+    VAR            shift, and go to state 66
+    END            shift, and go to state 121
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 105
+
+    5 function: FUNCTION_NAME '(' parameterList ')' ':' typeName block . END
+   23 block: block . statement
+
+    VAR            shift, and go to state 66
+    END            shift, and go to state 122
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 106
+
+   15 variableDeclaration: VAR IDENTIFIER . ':' typeName ASSIGN expression
+   16                    | VAR IDENTIFIER . ASSIGN expression
+   17                    | VAR IDENTIFIER . ':' typeName
+
+    ASSIGN  shift, and go to state 123
+    ':'     shift, and go to state 124
+
+
+state 107
+
+   65 return: RETURN VOID .
+
+    $default  reduce using rule 65 (return)
+
+
+state 108
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   66 return: RETURN expression .
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    '['       [reduce using rule 66 (return)]
+    $default  reduce using rule 66 (return)
+
+
+state 109
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   67 if: IF expression . '{' block '}'
+   68   | IF expression . '{' block '}' ELSE '{' block '}'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    '{'      shift, and go to state 125
+
+
+state 110
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   69 print: PRINT expression .
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    '['       [reduce using rule 69 (print)]
+    $default  reduce using rule 69 (print)
+
+
+state 111
+
+   70 for: FOR IDENTIFIER . ASSIGN expression ',' expression '{' block '}'
+   71    | FOR IDENTIFIER . ASSIGN expression ',' expression ',' expression '{' block '}'
+
+    ASSIGN  shift, and go to state 126
+
+
+state 112
+
+   31 assignment: expression ASSIGN . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 127
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 113
+
+   58 functionCall: FUNCTION_NAME '(' IDENTIFIER ';' . expressionList ')'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    $default  reduce using rule 62 (expressionList)
+
+    expression      go to state 46
+    functionCall    go to state 35
+    versionInv      go to state 36
+    arraySelector   go to state 37
+    expressionList  go to state 128
+
+
+state 114
+
+   57 functionCall: FUNCTION_NAME '(' expressionList ')' .
+
+    $default  reduce using rule 57 (functionCall)
+
+
+state 115
+
+   37 expression: IDENTIFIER '[' expression ']' .
+
+    $default  reduce using rule 37 (expression)
+
+
+state 116
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   63 expressionList: expressionList ',' expression .
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 63 (expressionList)
+
+
+state 117
+
+   60 versionInv: '@' '(' IDENTIFIER ';' . expressionList ')'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    $default  reduce using rule 62 (expressionList)
+
+    expression      go to state 46
+    functionCall    go to state 35
+    versionInv      go to state 36
+    arraySelector   go to state 37
+    expressionList  go to state 129
+
+
+state 118
+
+   59 versionInv: '@' '(' expressionList ')' .
+
+    $default  reduce using rule 59 (versionInv)
+
+
+state 119
+
+   61 arraySelector: expression '[' expression ']' .
+
+    $default  reduce using rule 61 (arraySelector)
+
+
+state 120
+
+    7 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' ':' typeName . block END
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 130
+
+
+state 121
+
+    6 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' block END .
+
+    $default  reduce using rule 6 (function)
+
+
+state 122
+
+    5 function: FUNCTION_NAME '(' parameterList ')' ':' typeName block END .
+
+    $default  reduce using rule 5 (function)
+
+
+state 123
+
+   16 variableDeclaration: VAR IDENTIFIER ASSIGN . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 131
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 124
+
+   15 variableDeclaration: VAR IDENTIFIER ':' . typeName ASSIGN expression
+   17                    | VAR IDENTIFIER ':' . typeName
+
+    STRUCT_NAME  shift, and go to state 9
+    IDENTIFIER   shift, and go to state 38
+
+    typeName  go to state 132
+
+
+state 125
+
+   67 if: IF expression '{' . block '}'
+   68   | IF expression '{' . block '}' ELSE '{' block '}'
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 133
+
+
+state 126
+
+   70 for: FOR IDENTIFIER ASSIGN . expression ',' expression '{' block '}'
+   71    | FOR IDENTIFIER ASSIGN . expression ',' expression ',' expression '{' block '}'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 134
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 127
+
+   31 assignment: expression ASSIGN expression .
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 31 (assignment)
+
+
+state 128
+
+   58 functionCall: FUNCTION_NAME '(' IDENTIFIER ';' expressionList . ')'
+   63 expressionList: expressionList . ',' expression
+
+    ')'  shift, and go to state 135
+    ','  shift, and go to state 85
+
+
+state 129
+
+   60 versionInv: '@' '(' IDENTIFIER ';' expressionList . ')'
+   63 expressionList: expressionList . ',' expression
+
+    ')'  shift, and go to state 136
+    ','  shift, and go to state 85
+
+
+state 130
+
+    7 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' ':' typeName block . END
+   23 block: block . statement
+
+    VAR            shift, and go to state 66
+    END            shift, and go to state 137
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 131
+
+   16 variableDeclaration: VAR IDENTIFIER ASSIGN expression .
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 16 (variableDeclaration)
+
+
+state 132
+
+   15 variableDeclaration: VAR IDENTIFIER ':' typeName . ASSIGN expression
+   17                    | VAR IDENTIFIER ':' typeName .
+
+    ASSIGN  shift, and go to state 138
+
+    $default  reduce using rule 17 (variableDeclaration)
+
+
+state 133
+
+   23 block: block . statement
+   67 if: IF expression '{' block . '}'
+   68   | IF expression '{' block . '}' ELSE '{' block '}'
+
+    VAR            shift, and go to state 66
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+    '}'            shift, and go to state 139
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 134
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   70 for: FOR IDENTIFIER ASSIGN expression . ',' expression '{' block '}'
+   71    | FOR IDENTIFIER ASSIGN expression . ',' expression ',' expression '{' block '}'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ','      shift, and go to state 140
+
+
+state 135
+
+   58 functionCall: FUNCTION_NAME '(' IDENTIFIER ';' expressionList ')' .
+
+    $default  reduce using rule 58 (functionCall)
+
+
+state 136
+
+   60 versionInv: '@' '(' IDENTIFIER ';' expressionList ')' .
+
+    $default  reduce using rule 60 (versionInv)
+
+
+state 137
+
+    7 function: FUNCTION_NAME '(' IDENTIFIER ';' parameterList ')' ':' typeName block END .
+
+    $default  reduce using rule 7 (function)
+
+
+state 138
+
+   15 variableDeclaration: VAR IDENTIFIER ':' typeName ASSIGN . expression
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 141
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 139
+
+   67 if: IF expression '{' block '}' .
+   68   | IF expression '{' block '}' . ELSE '{' block '}'
+
+    ELSE  shift, and go to state 142
+
+    $default  reduce using rule 67 (if)
+
+
+state 140
+
+   70 for: FOR IDENTIFIER ASSIGN expression ',' . expression '{' block '}'
+   71    | FOR IDENTIFIER ASSIGN expression ',' . expression ',' expression '{' block '}'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 143
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 141
+
+   15 variableDeclaration: VAR IDENTIFIER ':' typeName ASSIGN expression .
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+
+    $default  reduce using rule 15 (variableDeclaration)
+
+
+state 142
+
+   68 if: IF expression '{' block '}' ELSE . '{' block '}'
+
+    '{'  shift, and go to state 144
+
+
+state 143
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   70 for: FOR IDENTIFIER ASSIGN expression ',' expression . '{' block '}'
+   71    | FOR IDENTIFIER ASSIGN expression ',' expression . ',' expression '{' block '}'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    ','      shift, and go to state 145
+    '{'      shift, and go to state 146
+
+
+state 144
+
+   68 if: IF expression '{' block '}' ELSE '{' . block '}'
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 147
+
+
+state 145
+
+   71 for: FOR IDENTIFIER ASSIGN expression ',' expression ',' . expression '{' block '}'
+
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+
+    expression     go to state 148
+    functionCall   go to state 35
+    versionInv     go to state 36
+    arraySelector  go to state 37
+
+
+state 146
+
+   70 for: FOR IDENTIFIER ASSIGN expression ',' expression '{' . block '}'
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 149
+
+
+state 147
+
+   23 block: block . statement
+   68 if: IF expression '{' block '}' ELSE '{' block . '}'
+
+    VAR            shift, and go to state 66
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+    '}'            shift, and go to state 150
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 148
+
+   35 expression: expression . '.' IDENTIFIER
+   42           | expression . PLUS expression
+   43           | expression . MULT expression
+   44           | expression . DIV expression
+   45           | expression . MINUS expression
+   46           | expression . EQ expression
+   47           | expression . NEQ expression
+   48           | expression . LESS expression
+   49           | expression . GREATER expression
+   50           | expression . LEQ expression
+   51           | expression . GEQ expression
+   52           | expression . MOD expression
+   61 arraySelector: expression . '[' expression ']'
+   71 for: FOR IDENTIFIER ASSIGN expression ',' expression ',' expression . '{' block '}'
+
+    PLUS     shift, and go to state 50
+    MINUS    shift, and go to state 51
+    MULT     shift, and go to state 52
+    DIV      shift, and go to state 53
+    EQ       shift, and go to state 54
+    NEQ      shift, and go to state 55
+    LESS     shift, and go to state 56
+    GREATER  shift, and go to state 57
+    LEQ      shift, and go to state 58
+    GEQ      shift, and go to state 59
+    MOD      shift, and go to state 60
+    '.'      shift, and go to state 61
+    '['      shift, and go to state 62
+    '{'      shift, and go to state 151
+
+
+state 149
+
+   23 block: block . statement
+   70 for: FOR IDENTIFIER ASSIGN expression ',' expression '{' block . '}'
+
+    VAR            shift, and go to state 66
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+    '}'            shift, and go to state 152
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 150
+
+   68 if: IF expression '{' block '}' ELSE '{' block '}' .
+
+    $default  reduce using rule 68 (if)
+
+
+state 151
+
+   71 for: FOR IDENTIFIER ASSIGN expression ',' expression ',' expression '{' . block '}'
+
+    $default  reduce using rule 22 (block)
+
+    block  go to state 153
+
+
+state 152
+
+   70 for: FOR IDENTIFIER ASSIGN expression ',' expression '{' block '}' .
+
+    $default  reduce using rule 70 (for)
+
+
+state 153
+
+   23 block: block . statement
+   71 for: FOR IDENTIFIER ASSIGN expression ',' expression ',' expression '{' block . '}'
+
+    VAR            shift, and go to state 66
+    RETURN         shift, and go to state 68
+    IF             shift, and go to state 69
+    PRINT          shift, and go to state 70
+    FOR            shift, and go to state 71
+    TRUE           shift, and go to state 23
+    FALSE          shift, and go to state 24
+    INTEGER        shift, and go to state 25
+    FLOAT          shift, and go to state 26
+    FUNCTION_NAME  shift, and go to state 27
+    IDENTIFIER     shift, and go to state 28
+    STRING         shift, and go to state 29
+    '['            shift, and go to state 30
+    '('            shift, and go to state 31
+    '@'            shift, and go to state 33
+    '}'            shift, and go to state 154
+
+    variableDeclaration  go to state 72
+    statement            go to state 73
+    assignment           go to state 74
+    expression           go to state 75
+    functionCall         go to state 35
+    versionInv           go to state 36
+    arraySelector        go to state 37
+    return               go to state 76
+    if                   go to state 77
+    print                go to state 78
+    for                  go to state 79
+
+
+state 154
+
+   71 for: FOR IDENTIFIER ASSIGN expression ',' expression ',' expression '{' block '}' .
+
+    $default  reduce using rule 71 (for)

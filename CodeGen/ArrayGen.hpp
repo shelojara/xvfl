@@ -4,8 +4,9 @@
 
 #include "Generator.hpp"
 #include "../AST/ExpressionAST.hpp"
+#include "../Demux/DemuxComponent.hpp"
 
-class ArrayGen : public Generator<ArrayAST>, public Generator<ArrayIndexAST>
+class ArrayGen : public DemuxComponent, public Generator<ArrayAST>, public Generator<ArrayIndexAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, ArrayIndexAST & node) override;
