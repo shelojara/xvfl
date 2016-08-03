@@ -3,7 +3,7 @@
 End
 
 @Main ()
-    var g = 1
+    var g = "Hello"
     var a = g
 
     @Function(a, true)

@@ -38,16 +38,6 @@ llvm::Value * FunctionCallAST::accept(Demux * demux)
     return demux->visit(*this);
 }
 
-const std::string & FunctionCallAST::getName() const
-{
-    return name;
-}
-
-const std::string & FunctionCallAST::getVersion() const
-{
-    return version;
-}
-
 const ExpressionList & FunctionCallAST::getArguments() const
 {
     return arguments;
@@ -71,11 +61,6 @@ const ExpressionList & VersionInvAST::getArguments() const
 llvm::Value * StringAST::accept(Demux * demux)
 {
     return demux->visit(*this);
-}
-
-const std::string & StringAST::getValue() const
-{
-    return value;
 }
 
 llvm::Value * IdentifierAST::accept(Demux * demux)

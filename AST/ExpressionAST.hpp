@@ -70,9 +70,15 @@ public:
             name(name), version(version), arguments(arguments)
     {}
 
-    const std::string & getName() const;
+    std::string getName() const
+    {
+        return name;
+    }
 
-    const std::string & getVersion() const;
+    std::string getVersion() const
+    {
+        return version;
+    }
 
     const ExpressionList & getArguments() const;
 
@@ -118,7 +124,10 @@ public:
     StringAST(std::string value) : value(value)
     {}
 
-    const std::string & getValue() const;
+    std::string getValue() const
+    {
+        return value;
+    }
 
     virtual llvm::Value * accept(Demux * demux) override;
 };
