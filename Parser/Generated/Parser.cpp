@@ -527,8 +527,8 @@ static const yytype_uint16 yyrline[] =
      194,   195,   199,   206,   207,   208,   209,   213,   217,   221,
      225,   229,   233,   237,   241,   245,   249,   253,   257,   261,
      265,   269,   273,   277,   281,   285,   292,   296,   302,   306,
-     313,   318,   321,   325,   333,   337,   344,   349,   357,   364,
-     369
+     313,   321,   324,   328,   336,   340,   347,   352,   360,   367,
+     372
 };
 #endif
 
@@ -1958,22 +1958,29 @@ yyreduce:
 	;}
     break;
 
+  case 60:
+#line 314 "Parser.y"
+    {
+        (yyval.expression) = new ArrayIndexAST(std::shared_ptr<ExpressionAST>((yyvsp[(1) - (4)].expression)), std::shared_ptr<ExpressionAST>((yyvsp[(3) - (4)].expression)));
+    ;}
+    break;
+
   case 61:
-#line 318 "Parser.y"
+#line 321 "Parser.y"
     {
 		(yyval.expressionList) = new ExpressionList();
 	;}
     break;
 
   case 62:
-#line 322 "Parser.y"
+#line 325 "Parser.y"
     {
 		(yyvsp[(1) - (3)].expressionList)->push_back(std::shared_ptr<ExpressionAST>((yyvsp[(3) - (3)].expression)));
 	;}
     break;
 
   case 63:
-#line 326 "Parser.y"
+#line 329 "Parser.y"
     {
 		(yyval.expressionList) = new ExpressionList();
 		(yyval.expressionList)->push_back(std::shared_ptr<ExpressionAST>((yyvsp[(1) - (1)].expression)));
@@ -1981,21 +1988,21 @@ yyreduce:
     break;
 
   case 64:
-#line 334 "Parser.y"
+#line 337 "Parser.y"
     {
 		(yyval.statement) = new ReturnAST();
 	;}
     break;
 
   case 65:
-#line 338 "Parser.y"
+#line 341 "Parser.y"
     {
 		(yyval.statement) = new ReturnAST(std::shared_ptr<ExpressionAST>((yyvsp[(2) - (2)].expression)));
 	;}
     break;
 
   case 66:
-#line 345 "Parser.y"
+#line 348 "Parser.y"
     {
 		(yyval.statement) = new IfAST(std::shared_ptr<ExpressionAST>((yyvsp[(2) - (5)].expression)),
 		        std::shared_ptr<BlockAST>((yyvsp[(4) - (5)].block)), std::shared_ptr<BlockAST>(nullptr));
@@ -2003,7 +2010,7 @@ yyreduce:
     break;
 
   case 67:
-#line 350 "Parser.y"
+#line 353 "Parser.y"
     {
 		(yyval.statement) = new IfAST(std::shared_ptr<ExpressionAST>((yyvsp[(2) - (9)].expression)),
 		        std::shared_ptr<BlockAST>((yyvsp[(4) - (9)].block)), std::shared_ptr<BlockAST>((yyvsp[(8) - (9)].block)));
@@ -2011,14 +2018,14 @@ yyreduce:
     break;
 
   case 68:
-#line 358 "Parser.y"
+#line 361 "Parser.y"
     {
 		(yyval.statement) = new PrintAST(std::shared_ptr<ExpressionAST>((yyvsp[(2) - (2)].expression)));
 	;}
     break;
 
   case 69:
-#line 365 "Parser.y"
+#line 368 "Parser.y"
     {
 		(yyval.statement) = new ForAST(*(yyvsp[(2) - (9)].string), std::shared_ptr<ExpressionAST>((yyvsp[(4) - (9)].expression)), std::shared_ptr<ExpressionAST>((yyvsp[(6) - (9)].expression)),
 				std::make_shared<IntegerAST>(1), std::shared_ptr<BlockAST>((yyvsp[(8) - (9)].block)));
@@ -2026,7 +2033,7 @@ yyreduce:
     break;
 
   case 70:
-#line 370 "Parser.y"
+#line 373 "Parser.y"
     {
 		(yyval.statement) = new ForAST(*(yyvsp[(2) - (11)].string), std::shared_ptr<ExpressionAST>((yyvsp[(4) - (11)].expression)), std::shared_ptr<ExpressionAST>((yyvsp[(6) - (11)].expression)),
 				std::shared_ptr<ExpressionAST>((yyvsp[(8) - (11)].expression)), std::shared_ptr<BlockAST>((yyvsp[(10) - (11)].block)));
@@ -2035,7 +2042,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 2039 "Generated/Parser.cpp"
+#line 2046 "Generated/Parser.cpp"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);

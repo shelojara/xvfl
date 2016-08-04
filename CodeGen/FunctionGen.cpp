@@ -77,7 +77,6 @@ llvm::Value * FunctionGen::emit(VflModule & module, BlockAST & node)
 
 llvm::Value * FunctionGen::emit(VflModule & module, ParameterAST & node)
 {
-    return module.getBuilder().CreateAlloca(
-            node.getType()->toLLVM(module.getTypeSystem()),
+    return module.getBuilder().CreateAlloca(node.getType()->toLLVM(module.getTypeSystem()),
             nullptr, node.getName());
 }

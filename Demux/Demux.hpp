@@ -109,10 +109,6 @@ public:
 
     llvm::Value * visit(PrintAST & node);
 
-    llvm::Value * visit(ArrayAssignmentAST & node);
-
-    llvm::Value * visit(StructAssignmentAST & node);
-
     llvm::Value * visit(ParameterAST & node);
 
     llvm::Value * visit(StructAST & node);

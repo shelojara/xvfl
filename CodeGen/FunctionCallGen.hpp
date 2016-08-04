@@ -9,6 +9,9 @@
 class FunctionCallGen : public DemuxComponent, public Generator<FunctionCallAST>, public Generator<VersionInvAST>
 {
 public:
+    llvm::Value * makeFunctionCall(VflModule & module,
+            ExpressionList & arguments, llvm::Function * function);
+
     virtual llvm::Value * emit(VflModule & module, FunctionCallAST & node) override;
     virtual llvm::Value * emit(VflModule & module, VersionInvAST & node) override;
 };

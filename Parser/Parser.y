@@ -311,6 +311,9 @@ versionInv:
 
 arraySelector:
     expression '[' expression ']'
+    {
+        $$ = new ArrayIndexAST(std::shared_ptr<ExpressionAST>($1), std::shared_ptr<ExpressionAST>($3));
+    }
     ;
 
 expressionList:

@@ -1,9 +1,9 @@
-#Book
-    string name
-    int id
+@TakeArr (int[] a)
+    a[0] = 5
 End
 
 @Main ()
-    var g:#Book
-    g.id = 1
+    var a = [1, 2, 3, 4]
+
+    @TakeArr(a)
 End

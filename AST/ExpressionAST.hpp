@@ -45,13 +45,22 @@ public:
             op(op), left(left), right(right)
     {}
 
-    const std::string & getOp() const;
-
-    const std::shared_ptr<ExpressionAST> & getLeft() const;
-
-    const std::shared_ptr<ExpressionAST> & getRight() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    std::string getOp() const
+    {
+        return op;
+    }
+
+    std::shared_ptr<ExpressionAST> getLeft()
+    {
+        return left;
+    }
+
+    std::shared_ptr<ExpressionAST> getRight()
+    {
+        return right;
+    }
 };
 
 
@@ -70,6 +79,8 @@ public:
             name(name), version(version), arguments(arguments)
     {}
 
+    virtual llvm::Value * accept(Demux * demux) override;
+
     std::string getName() const
     {
         return name;
@@ -80,11 +91,12 @@ public:
         return version;
     }
 
-    const ExpressionList & getArguments() const;
+    ExpressionList & getArguments()
+    {
+        return arguments;
+    }
 
     std::string virtualName();
-
-    virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
@@ -103,13 +115,19 @@ public:
             version(version), arguments(arguments)
     {}
 
-    const std::string & getVersion() const;
+    virtual llvm::Value * accept(Demux * demux) override;
 
-    const ExpressionList & getArguments() const;
+    std::string getVersion() const
+    {
+        return version;
+    }
+
+    ExpressionList & getArguments()
+    {
+        return arguments;
+    }
 
     std::string virtualName(std::string name);
-
-    virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
@@ -124,12 +142,12 @@ public:
     StringAST(std::string value) : value(value)
     {}
 
+    virtual llvm::Value * accept(Demux * demux) override;
+
     std::string getValue() const
     {
         return value;
     }
-
-    virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
@@ -145,9 +163,12 @@ public:
             name(name)
     {}
 
-    const std::string & getName() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    std::string getName() const
+    {
+        return name;
+    }
 };
 
 
@@ -160,9 +181,12 @@ public:
             value(value)
     {}
 
-    int getValue() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    int getValue()
+    {
+        return value;
+    }
 };
 
 
@@ -175,12 +199,12 @@ public:
             value(value)
     {}
 
+    virtual llvm::Value * accept(Demux * demux) override;
+
     bool getValue() const
     {
         return value;
     }
-
-    virtual llvm::Value * accept(Demux * demux) override;
 };
 
 
@@ -193,9 +217,12 @@ public:
             value(value)
     {}
 
-    float getValue() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    float getValue()
+    {
+        return value;
+    }
 };
 
 
@@ -208,27 +235,36 @@ public:
             elements(elements)
     {}
 
-    const ExpressionList & getElements() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    ExpressionList & getElements()
+    {
+        return elements;
+    }
 };
 
 
 struct ArrayIndexAST : public ExpressionAST
 {
-    std::string name;
-    std::shared_ptr<ExpressionAST> expression;
+    std::shared_ptr<ExpressionAST> left;
+    std::shared_ptr<ExpressionAST> index;
 
 public:
-    ArrayIndexAST(std::string name, std::shared_ptr<ExpressionAST> expression) :
-            name(name), expression(expression)
+    ArrayIndexAST(std::shared_ptr<ExpressionAST> left, std::shared_ptr<ExpressionAST> index) :
+            left(left), index(index)
     {}
 
-    const std::string & getName() const;
-
-    const std::shared_ptr<ExpressionAST> & getExpression() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    std::shared_ptr<ExpressionAST> getLeft() const
+    {
+        return left;
+    }
+
+    std::shared_ptr<ExpressionAST> getIndex()
+    {
+        return index;
+    }
 };
 
 
