@@ -90,6 +90,8 @@ public:
         return funcAlias[vname];
     }
 
+    void addFuncAlias(std::string name, std::string version, llvm::Function * function);
+
     llvm::Value * loadIfPtr(Demux * demux, std::shared_ptr<ExpressionAST> node);
 };
 

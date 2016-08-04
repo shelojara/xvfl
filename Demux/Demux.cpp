@@ -7,6 +7,13 @@ void Demux::walkAST(Program & program)
 {
     // FIXME: this method should provably be it's own class.
 
+    module.addFuncAlias("Print", "format", llvm::dyn_cast<llvm::Function>(
+            module.getLLVMModule()->getOrInsertFunction("printf", llvm::FunctionType::get(
+                    module.getTypeSystem().intTy,
+                    llvm::PointerType::get(module.getTypeSystem().charTy, 0),
+                    true
+            ))));
+
     // emit all structs.
     for (auto structDef : program.getStructList()) {
         structDef->accept(this);

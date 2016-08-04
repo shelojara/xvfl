@@ -37,13 +37,3 @@ llvm::Value * PrintAST::accept(Demux * demux)
 {
     return demux->visit(*this);
 }
-
-llvm::Value * ArrayAssignmentAST::accept(Demux * demux)
-{
-    return demux->visit(*this);
-}
-
-llvm::Value * StructAssignmentAST::accept(Demux * demux)
-{
-    return demux->visit(*this);
-}
