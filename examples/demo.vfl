@@ -1,9 +1,9 @@
-@TakeArr (int[] a)
-    a[0] = 5
+@TakeArr (int[] a) : int
+    return a[0]
 End
 
 @Main ()
     var a = [1, 2, 3, 4]
 
-    @TakeArr(a)
+    var r = @TakeArr(a)
 End

@@ -10,7 +10,8 @@
 class FunctionAST;
 
 class FunctionGen : public DemuxComponent, public Generator<FunctionAST>,
-                    public Generator<BlockAST>, public Generator<ParameterAST>
+                    public Generator<BlockAST>, public Generator<ParameterAST>,
+                    public Generator<ReturnAST>
 {
 public:
     virtual llvm::Value * emit(VflModule & module, FunctionAST & node) override;
@@ -18,6 +19,8 @@ public:
     virtual llvm::Value * emit(VflModule & module, BlockAST & node) override;
 
     virtual llvm::Value * emit(VflModule & module, ParameterAST & node) override;
+
+    virtual llvm::Value * emit(VflModule & module, ReturnAST & node) override;
 
     void loadParameters(VflModule & module, llvm::iterator_range<llvm::Function::arg_iterator> args,
             ParameterList parameters);

@@ -80,3 +80,30 @@ llvm::Value * FunctionGen::emit(VflModule & module, ParameterAST & node)
     return module.getBuilder().CreateAlloca(node.getType()->toLLVM(module.getTypeSystem()),
             nullptr, node.getName());
 }
+
+llvm::Value * FunctionGen::emit(VflModule & module, ReturnAST & node)
+{
+    llvm::Value * returnValue = nullptr;
+
+    if (node.getExpression()) {
+        returnValue = module.loadIfPtr(demux, node.getExpression());
+
+        auto type = returnValue->getType();
+
+        auto funcType = module.getBuilder().GetInsertBlock()->getParent()->getReturnType();
+
+        // cast return value to the function type if necessary.
+        returnValue = module.getTypeSystem().cast(returnValue, funcType,
+                module.getBuilder().GetInsertBlock());
+
+        if (type->isVoidTy()) {
+            // return a void.
+            returnValue = nullptr;
+        } else if (type->getTypeID() == 14 || type->getTypeID() == 13) {
+            // FIXME
+            returnValue = module.getBuilder().CreateLoad(returnValue);
+        }
+    }
+
+    return module.getBuilder().CreateRet(returnValue);
+}
