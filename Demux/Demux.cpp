@@ -7,7 +7,12 @@ void Demux::walkAST(Program & program)
 {
     // FIXME: this method should provably be it's own class.
 
-    // emit all the functions.
+    // emit all structs.
+    for (auto structDef : program.getStructList()) {
+        structDef->accept(this);
+    }
+
+    // emit all functions.
     for (auto function : program.getFunctionList()) {
         function->accept(this);
     }
@@ -126,4 +131,9 @@ llvm::Value * Demux::visit(StructAssignmentAST & node)
 llvm::Value * Demux::visit(ParameterAST & node)
 {
     return functionGen.emit(module, node);
+}
+
+llvm::Value * Demux::visit(StructAST & node)
+{
+    return structGen.emit(module, node);
 }

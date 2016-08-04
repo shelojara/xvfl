@@ -246,11 +246,17 @@ public:
             left(left), member(member)
     {}
 
-    const std::string & getMember() const;
-
-    const std::shared_ptr<ExpressionAST> & getLeft() const;
-
     virtual llvm::Value * accept(Demux * demux) override;
+
+    std::string getMember()
+    {
+        return member;
+    }
+
+    std::shared_ptr<ExpressionAST> getLeft() const
+    {
+        return left;
+    }
 };
 
 

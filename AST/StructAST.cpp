@@ -4,5 +4,5 @@
 
 llvm::Value * StructAST::accept(Demux * demux)
 {
-    return nullptr;
+    return demux->visit(*this);
 }

@@ -26,6 +26,16 @@ public:
     virtual ~StructAST() = default;
 
     virtual llvm::Value * accept(Demux * demux) override;
+
+    std::string getName()
+    {
+        return name;
+    }
+
+    ParameterList & getMembers()
+    {
+        return members;
+    }
 };
 
 

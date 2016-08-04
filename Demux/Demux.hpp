@@ -114,6 +114,8 @@ public:
     llvm::Value * visit(StructAssignmentAST & node);
 
     llvm::Value * visit(ParameterAST & node);
+
+    llvm::Value * visit(StructAST & node);
 };
 
 

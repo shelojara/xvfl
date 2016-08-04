@@ -127,13 +127,3 @@ llvm::Value * StructMemberAST::accept(Demux * demux)
 {
     return demux->visit(*this);
 }
-
-const std::string & StructMemberAST::getMember() const
-{
-    return member;
-}
-
-const std::shared_ptr<ExpressionAST> & StructMemberAST::getLeft() const
-{
-    return left;
-}

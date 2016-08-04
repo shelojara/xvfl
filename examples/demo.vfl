@@ -1,10 +1,9 @@
-@Function (int a, bool b)
-
+#Book
+    string name
+    int id
 End
 
 @Main ()
-    var g = "Hello"
-    var a = g
-
-    @Function(a, true)
+    var g:#Book
+    g.id = 1
 End

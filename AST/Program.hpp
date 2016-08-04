@@ -34,9 +34,14 @@ public:
         structList.push_back(std::shared_ptr<StructAST>(structDef));
     }
 
-    const FunctionList & getFunctionList() const
+    FunctionList & getFunctionList()
     {
         return functionList;
+    }
+
+    StructList & getStructList()
+    {
+        return structList;
     }
 };
 
