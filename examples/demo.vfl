@@ -1,9 +1,5 @@
-@TakeArr (int[] a) : int
-    return a[0]
-End
-
 @Main ()
-    var a = [1, 2, 3, 4]
-
-    var r = @TakeArr(a)
+    for i = 0, i < 4 {
+        @Print(format; "%d\n", i)
+    }
 End

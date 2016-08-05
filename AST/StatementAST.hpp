@@ -36,13 +36,38 @@ class ForAST : public StatementAST
     std::shared_ptr<BlockAST> block;
 
 public:
-    ForAST(const std::string & variable, const std::shared_ptr<ExpressionAST> & initial,
-           const std::shared_ptr<ExpressionAST> & condition,
-           const std::shared_ptr<ExpressionAST> & increment,
-           const std::shared_ptr<BlockAST> & block) :
+    ForAST(std::string variable, std::shared_ptr<ExpressionAST> initial,
+           std::shared_ptr<ExpressionAST> condition,
+           std::shared_ptr<ExpressionAST> increment,
+           std::shared_ptr<BlockAST> block) :
             variable (variable), initial(initial), condition(condition),
             increment(increment), block(block)
     {}
+
+    std::string getVariable()
+    {
+        return variable;
+    }
+
+    std::shared_ptr<ExpressionAST> getInitial()
+    {
+        return initial;
+    }
+
+    std::shared_ptr<ExpressionAST> getCondition()
+    {
+        return condition;
+    }
+
+    std::shared_ptr<ExpressionAST> getIncrement()
+    {
+        return increment;
+    }
+
+    std::shared_ptr<BlockAST> getBlock()
+    {
+        return block;
+    }
 
     virtual llvm::Value * accept(Demux * demux) override;
 };

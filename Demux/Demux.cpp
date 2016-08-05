@@ -92,7 +92,7 @@ llvm::Value * Demux::visit(StructMemberAST & node)
 
 llvm::Value * Demux::visit(ForAST & node)
 {
-    return nullptr; // forGen.emit(module, node);
+    return forGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(VarDeclAST & node)

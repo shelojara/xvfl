@@ -18,6 +18,7 @@
 #include "../CodeGen/StructGen.hpp"
 #include "../CodeGen/AssignmentGen.hpp"
 #include "../CodeGen/VarDeclGen.hpp"
+#include "../CodeGen/ForGen.hpp"
 
 class FunctionAST;
 class Program;
@@ -51,6 +52,8 @@ private:
 
     VarDeclGen varDeclGen;
 
+    ForGen forGen;
+
 public:
     Demux(VflModule & module) :
             module(module)
@@ -65,6 +68,7 @@ public:
         structGen.setDemux(this);
         assignmentGen.setDemux(this);
         varDeclGen.setDemux(this);
+        forGen.setDemux(this);
     }
 
     void walkAST(Program & program);
