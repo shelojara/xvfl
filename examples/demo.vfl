@@ -1,5 +1,5 @@
 @Main ()
     for i = 0, i < 4 {
-        @Print(format; "%d\n", i)
+        print i
     }
 End

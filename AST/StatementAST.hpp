@@ -200,6 +200,11 @@ public:
             expression(expression)
     {}
 
+    std::shared_ptr<ExpressionAST> getExpression()
+    {
+        return expression;
+    }
+
     virtual llvm::Value * accept(Demux * demux) override;
 };
 

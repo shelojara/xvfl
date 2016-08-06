@@ -122,7 +122,7 @@ llvm::Value * Demux::visit(IfAST & node)
 
 llvm::Value * Demux::visit(PrintAST & node)
 {
-    return nullptr; // printGen.emit(module, node);
+    return builtInFuncGen.emit(module, node);
 }
 
 llvm::Value * Demux::visit(ParameterAST & node)
