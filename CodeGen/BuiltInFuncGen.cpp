@@ -3,7 +3,7 @@
 llvm::Value * BuiltInFuncGen::emit(VflModule & module, PrintAST & node)
 {
     // take the value we want to print.
-    auto value = node.getExpression()->accept(demux);
+    auto value = module.loadIfPtr(demux, node.getExpression());
 
     auto print = module.getLLVMModule()->getOrInsertFunction("printf",
             llvm::FunctionType::get(llvm::IntegerType::getInt32Ty(llvm::getGlobalContext()),
