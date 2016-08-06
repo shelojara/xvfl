@@ -1,0 +1,10 @@
+#!/bin/bash
+
+s="$1"
+s=${s##*/}
+s=${s%.*}
+
+/Users/mijara/Projects/vfs/build/vfsc $1 2> "$s.bc"
+/usr/local/opt/llvm/bin/llc -filetype=obj "$s.bc"
+clang "$s.o" -o "$s" 2> /dev/null
+rm -f "$s.bc" "$s.o"

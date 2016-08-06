@@ -20,6 +20,7 @@
 #include "../CodeGen/VarDeclGen.hpp"
 #include "../CodeGen/ForGen.hpp"
 #include "../CodeGen/BuiltInFuncGen.hpp"
+#include "../CodeGen/IfGen.hpp"
 
 class FunctionAST;
 class Program;
@@ -57,6 +58,8 @@ private:
 
     BuiltInFuncGen builtInFuncGen;
 
+    IfGen ifGen;
+
 public:
     Demux(VflModule & module) :
             module(module)
@@ -73,6 +76,7 @@ public:
         varDeclGen.setDemux(this);
         forGen.setDemux(this);
         builtInFuncGen.setDemux(this);
+        ifGen.setDemux(this);
     }
 
     void walkAST(Program & program);

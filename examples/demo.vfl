@@ -1,5 +1,7 @@
 @Main ()
-    for i = 0, i < 4 {
-        print i
+    if true {
+
+    } else {
+
     }
 End

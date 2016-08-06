@@ -29,6 +29,6 @@ set(SOURCES
         TypeSystem/Types.cpp
         AST/StructAST.cpp
         CodeGen/AssignmentGen.cpp
-        CodeGen/VarDeclGen.cpp CodeGen/ForGen.cpp CodeGen/ForGen.hpp CodeGen/BuiltInFuncGen.cpp CodeGen/BuiltInFuncGen.hpp)
+        CodeGen/VarDeclGen.cpp CodeGen/ForGen.cpp CodeGen/ForGen.hpp CodeGen/BuiltInFuncGen.cpp CodeGen/BuiltInFuncGen.hpp CodeGen/IfGen.cpp CodeGen/IfGen.hpp)
 
 add_executable(vflc Main.cpp ${SOURCES})

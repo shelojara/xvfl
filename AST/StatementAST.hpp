@@ -187,6 +187,21 @@ public:
             condition(condition), thenBlock(thenBlock), elseBlock(elseBlock)
     {}
 
+    std::shared_ptr<ExpressionAST> getCondition()
+    {
+        return condition;
+    }
+
+    std::shared_ptr<BlockAST> getThenBlock()
+    {
+        return thenBlock;
+    }
+
+    std::shared_ptr<BlockAST> getElseBlock()
+    {
+        return elseBlock;
+    }
+
     virtual llvm::Value * accept(Demux * demux) override;
 };
 
