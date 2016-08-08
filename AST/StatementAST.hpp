@@ -224,5 +224,14 @@ public:
 };
 
 
+class BreakAST : public StatementAST
+{
+public:
+    BreakAST() {}
+
+    virtual llvm::Value * accept(Demux * demux) override;
+};
+
+
 
 #endif //VFL_STATEMENTAST_HPP
