@@ -124,6 +124,8 @@ public:
     llvm::Value * visit(ParameterAST & node);
 
     llvm::Value * visit(StructAST & node);
+
+    llvm::Value * visit(BreakASK & node);
 };
 
 
